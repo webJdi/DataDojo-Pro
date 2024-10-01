@@ -1,0 +1,86 @@
+{
+    "questions": [
+      {
+        "id": 1,
+        "problemStatement": "Write a function that adds two numbers",
+        "testCases": [
+          { "input": "2, 3", "expectedOutput": "5" },
+          { "input": "-1, 5", "expectedOutput": "4" },
+          { "input": "0, 0", "expectedOutput": "0" },
+          { "input": "10, -10", "expectedOutput": "0" },
+          { "input": "1000, 1", "expectedOutput": "1001" }
+        ]
+      },
+      {
+        "id": 2,
+        "problemStatement": "Write a function that returns the factorial of a number",
+        "testCases": [
+          { "input": "5", "expectedOutput": "120" },
+          { "input": "0", "expectedOutput": "1" },
+          { "input": "1", "expectedOutput": "1" },
+          { "input": "10", "expectedOutput": "3628800" }
+        ]
+      },
+      {
+        "id": 3,
+        "problemStatement": "Write a function to reverse a string",
+        "testCases": [
+          { "input": "\"hello\"", "expectedOutput": "\"olleh\"" },
+          { "input": "\"world\"", "expectedOutput": "\"dlrow\"" },
+          { "input": "\"\"", "expectedOutput": "\"\"" },
+          { "input": "\"a\"", "expectedOutput": "\"a\"" }
+        ]
+      },
+      {
+        "id": 4,
+        "problemStatement": "Write a function to check if a number is prime",
+        "testCases": [
+          { "input": "2", "expectedOutput": "true" },
+          { "input": "4", "expectedOutput": "false" },
+          { "input": "13", "expectedOutput": "true" },
+          { "input": "1", "expectedOutput": "false" }
+        ]
+      },
+      {
+        "id": 5,
+        "problemStatement": "Write a function to find the greatest common divisor (GCD) of two numbers",
+        "testCases": [
+          { "input": "12, 15", "expectedOutput": "3" },
+          { "input": "100, 10", "expectedOutput": "10" },
+          { "input": "7, 13", "expectedOutput": "1" },
+          { "input": "18, 24", "expectedOutput": "6" }
+        ]
+      },
+      {
+        "id": 6,
+        "problemStatement": "Write a function to implement binary search on a sorted array",
+        "testCases": [
+          { "input": "[1, 2, 3, 4, 5], 3", "expectedOutput": "2" },
+          { "input": "[1, 2, 3, 4, 5], 1", "expectedOutput": "0" },
+          { "input": "[1, 2, 3, 4, 5], 5", "expectedOutput": "4" },
+          { "input": "[1, 2, 3, 4, 5], 6", "expectedOutput": "-1" }
+        ]
+      },
+      {
+        "id": 7,
+        "problemStatement": "Write a function to find the longest common prefix among an array of strings",
+        "testCases": [
+          { "input": "[\"flower\", \"flow\", \"flight\"]", "expectedOutput": "\"fl\"" },
+          { "input": "[\"dog\", \"racecar\", \"car\"]", "expectedOutput": "\"\"" },
+          { "input": "[\"interview\", \"interval\", \"interact\"]", "expectedOutput": "\"inter\"" },
+          { "input": "[\"a\", \"b\", \"c\"]", "expectedOutput": "\"\"" }
+        ]
+      },
+      {
+        "id": 8,
+        "problemStatement": "Write a function to check if a string is a palindrome",
+        "testCases": [
+          { "input": "\"racecar\"", "expectedOutput": "true" },
+          { "input": "\"hello\"", "expectedOutput": "false" },
+          { "input": "\"madam\"", "expectedOutput": "true" },
+          { "input": "\"\"", "expectedOutput": "true" }
+        ]
+      }
+    ]
+  }
+  

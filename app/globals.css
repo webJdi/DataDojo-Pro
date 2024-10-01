@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Quicksand:wght@300..700&display=swap');
+
+*
+{
+  margin: 0;
+  padding: 0;
+  font-family: 'Oswald', sans-serif;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.MuiChart-root text {
+  fill: #fff !important;  /* Apply white color to all text */
+}
+
+.MuiChart-root .MuiAxis-root line {
+  stroke: #fff !important;  /* Apply white color to axis lines */
+}
+
+
+.cube {
+  -webkit-transform-style: preserve-3d;
+  -webkit-animation: spin 3s infinite ease-out;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+
+.cube div {
+   width: 100px;
+   height: 100px;
+   line-height: 100px;
+   text-align: center;
+   box-shadow: inset 0px 0px 0px 1px rgba(10, 0, 0, 0.8);
+   background: #81B29A;
+   display: block;
+   position: absolute;
+}
+
+.cube div.top {
+   -webkit-transform: rotateX(90deg); 
+  margin-top: -50px;
+  background-color: #81B29A;
+}
+
+.cube div.right {
+   -webkit-transform: rotateY(90deg); 
+  margin-left: 50px;
+}
+
+.cube div.bottom {
+   -webkit-transform: rotateX(-90deg); 
+  margin-top: 50px;
+}
+
+.cube div.left {
+   -webkit-transform: rotateY(-90deg); 
+  margin-left: -50px;
+}
+
+.cube div.front {
+   -webkit-transform: translateZ(50px);
+}
+
+.cube div.back {
+   -webkit-transform: translateZ(-50px) rotateX(180deg);
+}
+
+@-webkit-keyframes spin {
+  0% {-webkit-transform: rotateX(-20deg) rotateY(20deg);}
+  100% {-webkit-transform: rotateX(-20deg) rotateY(740deg);}
+}
