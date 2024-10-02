@@ -16,6 +16,7 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
 import DynamicFormIcon from '@mui/icons-material/DynamicForm';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 //Components
 import Navbar from '../components/navbar';
@@ -27,9 +28,6 @@ import {collection, query, where, getDocs, getDoc, doc, updateDoc,arrayUnion, ar
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useLogout from '../components/logout';
-
-
-
 
 
 export default function Home(){
@@ -48,6 +46,8 @@ export default function Home(){
     const [email, setEmail] = useState('');
     const [score, setScore] = useState(0);
     const [finalScore, setFinalScore] = useState(0);
+
+    const isMobile = useMediaQuery('(max-width:450px)');
 
         // state variables for colour mode
         const [mode, setMode] = useState('dark');
@@ -224,12 +224,13 @@ export default function Home(){
 
 
 return(
-<Box
+        <Box
             width={'100vw'}
             minHeight={'100vh'}
             backgroundColor={col1}
             display={'flex'}
-            overflow={'hidden'}
+            flexDirection={isMobile?'column':'row'}
+            overflow={isMobile?'auto':'hidden'}
             >
                     <Navbar />
 

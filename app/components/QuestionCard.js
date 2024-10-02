@@ -7,6 +7,8 @@ import { doc, onSnapshot} from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useState, useEffect} from "react";
 import {auth, db} from '../firebase';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const QuestionCard = ({ question, onAnswer, userAnswer, onNavigate, currentIndex, totalQuestions, onSubmit }) => {
     const answerOptions = ['A', 'B', 'C', 'D'];
@@ -21,6 +23,8 @@ const QuestionCard = ({ question, onAnswer, userAnswer, onNavigate, currentIndex
         const [col6, setCol6] = useState('#3D405B'); // Dark shade
         const [col7, setCol7] = useState('#5FA8D3'); //Blue
         const [col8, setCol8] = useState('#2b2d44'); //Darker shade
+
+        const isMobile = useMediaQuery('(max-width:450px)');
 
         useEffect(() => {
         
@@ -80,7 +84,7 @@ const QuestionCard = ({ question, onAnswer, userAnswer, onNavigate, currentIndex
     return (
         <Box
             display={'flex'}
-            flexDirection={'row'}
+            flexDirection={isMobile?'column':'row'}
             justifyContent={'flex-start'}
         >
             <Box
@@ -89,7 +93,7 @@ const QuestionCard = ({ question, onAnswer, userAnswer, onNavigate, currentIndex
                 alignItems="center"
                 justifyContent="space-between"
                 height="100%"
-                width={'50vw'}
+                width={isMobile?'85vw':'50vw'}
             >
                 <Typography
                     variant="h5"
@@ -143,13 +147,18 @@ const QuestionCard = ({ question, onAnswer, userAnswer, onNavigate, currentIndex
                 width={'500'}
                 height={'350'}
             >
+                <Box
+                    sx={{display:isMobile? 'none':'static'}}
+                >
                 <Image
-                src={'/bg2.jpg'}
-                width={'500'}
-                height={'350'}
-                margin={'0 auto'}
-                
+                    src={'/bg2.jpg'}
+                    width={'500'}
+                    height={'350'}
+                    margin={'0 auto'}
+                    
             />
+                </Box>
+                
             <Box display="flex" justifyContent="space-between" width="100%" mt={4}>
                     <Button 
                         onClick={() => onNavigate('prev')} 
