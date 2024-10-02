@@ -1,8 +1,9 @@
 'use client';
 //MUI components
-import { Box, Link, Typography, Button, Stack, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from "@mui/material";
+import { Box, Link, Typography, Button, Stack, Modal, Drawer, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from "@mui/material";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 //MUI Icons used: Keep adding here to have a consistent dependency
 import HomeIcon from '@mui/icons-material/Home';
@@ -13,7 +14,7 @@ import Person4Icon from '@mui/icons-material/Person4';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-
+import MenuIcon from '@mui/icons-material/Menu';
 
 import MoodIcon from '@mui/icons-material/Mood';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
@@ -47,6 +48,11 @@ const Navbar = () => {
     const pathname = usePathname();
     const [mode, setMode] = useState('dark');
     const [email, setEmail] = useState('');
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+
+    // Media query for detecting screen size
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     // state variables for colour mode
     const [col1, setCol1] = useState('#191c35'); // Darker shade
@@ -91,6 +97,13 @@ const Navbar = () => {
     
 
     const activeColor = col1;
+    
+    const toggleDrawer = (open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+        setDrawerOpen(open);
+    };
 
     const isActive = (path) => pathname === path;
 
@@ -185,7 +198,8 @@ const Navbar = () => {
             <Box width='15%'>
                 {icon}
             </Box>
-            <Typography>
+            <Typography
+            >
                 {text}
             </Typography>
         </Button>
@@ -193,20 +207,20 @@ const Navbar = () => {
 
     return(
                     <Box
-                        width='20vw'
-                        height='100vh'
+                        width={isMobile ? '100vw' : '20vw'}
+                        height={isMobile? '8vh':'100vh'}
                         display='flex'
                         boxSizing={'border-box'}
                         justifyContent='space-between'
-                        flexDirection={'column'}
+                        flexDirection={isMobile ? 'row' : 'column'}
                         alignItems='center'
-                        padding={'0 1vw'}
+                        padding={isMobile ? '0 1vw' : '1vw'}
                         bgcolor={col6}
                         >
                             <Typography
                             color={col4}
                             margin='0.5em'
-                            fontSize='2em'
+                            fontSize={isMobile ? '1em' : '2em'}
                             textAlign={'left'}
                             borderBottom={'1px solid rgba(0,0,0,0.3)'}
                             >
@@ -215,6 +229,7 @@ const Navbar = () => {
                                     underline='none'
                                     href='./'
                                     textAlign={'left'}
+                                    
                                 >
                                     DataDojo
                                 </Link>
@@ -244,12 +259,38 @@ const Navbar = () => {
                                     
                             </ToggleButtonGroup>
 
+                            
+                            <Button
+                                display={isMobile? 'static':'none'} // Button for mobile menu
+                                onClick={toggleDrawer(true)}
+                            >
+                                <MenuIcon/>
+                            </Button>
+
+                            <Drawer
+                                anchor="top"
+                                open={drawerOpen}
+                                onClose={toggleDrawer(false)}
+                            >
+                                <Box
+                                    bgcolor={col1}
+                                >
+                                    <NavButton href="/dashboard" icon={<HomeIcon />} text="Dashboard" />
+                                    <NavButton href="/chat" icon={<SupportAgentIcon />} text="Socratic Bot" />
+                                    <NavButton href="/editor" icon={<CodeIcon />} text="Code Editor" />
+                                    <NavButton href="/fcgen" icon={<BoltIcon />} text="Flashcards" />
+                                    <NavButton href="/test" icon={<DynamicFormIcon />} text="Mock Test" />
+                                </Box>
+                            </Drawer>
+
+
                             <Box
-                                display={'flex'}
-                                flexDirection={'column'}
+                                display={isMobile? 'none':'flex'}
+                                flexDirection={isMobile ? 'row' : 'column'} // Change layout for mobile
+                                width={isMobile ? 'auto' : '100%'}
                                 justifyContent={'flex-start'}
                                 height={'60vw'}
-                                width={'100%'}
+                                
                                 paddingTop={'5vh'}
                             >
                                 <NavButton href="/dashboard" icon={<HomeIcon />} text="Dashboard" />
@@ -362,6 +403,7 @@ const Navbar = () => {
                             
                             <Box
                                 width={'100%'}
+                                display={isMobile?'none':'flex'}
                             >
                                 
                                 <Button

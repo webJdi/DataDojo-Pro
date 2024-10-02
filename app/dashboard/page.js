@@ -2,7 +2,7 @@
 
 import {Box, Link, Typography, Button, Stack, ToggleButton, ToggleButtonGroup} from "@mui/material"
 import questions from '../editor/questions.json';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // MUI Icons
 import HomeIcon from '@mui/icons-material/Home';
@@ -61,7 +61,7 @@ export default function Home(){
     const [col8, setCol8] = useState('#2b2d44'); //Darker shade
 
 
-
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     // Function to fetch max score from db
     const getMaxScore = async() => {
@@ -330,11 +330,12 @@ const toggleAppraisal = async (threadId) => {
     return(
         <Box
             width={'100vw'}
-            height={'100vh'}
+            height={isMobile?'auto':'100vh'}
             bgcolor={col1}
             overflow={'hidden'}
             display={'flex'}
             justifyContent={'space-between'}
+            flexDirection={isMobile?'column':'row'}
         >
                     <Navbar />
 
