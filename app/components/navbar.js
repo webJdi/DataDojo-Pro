@@ -280,6 +280,8 @@ const Navbar = () => {
                                     <NavButton href="/editor" icon={<CodeIcon />} text="Code Editor" />
                                     <NavButton href="/fcgen" icon={<BoltIcon />} text="Flashcards" />
                                     <NavButton href="/test" icon={<DynamicFormIcon />} text="Mock Test" />
+                                    <NavButton href="/profile" icon={<Person4Icon />} text="Profile" />
+                                    <NavButton onClick={logout} icon={<LogoutIcon />} text="Logout" />
                                 </Box>
                             </Drawer>
 
@@ -298,7 +300,7 @@ const Navbar = () => {
                                 <NavButton href="/editor" icon={<CodeIcon />} text="Code Editor" />
                                 <NavButton href="/fcgen" icon={<BoltIcon />} text="Flashcards" />
                                 <NavButton href="/test" icon={<DynamicFormIcon />} text="Mock Test" />
-
+                                
 
                                 <Button
                                     fullWidth
