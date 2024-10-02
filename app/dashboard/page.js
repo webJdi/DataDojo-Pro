@@ -46,7 +46,8 @@ export default function Home(){
     const [highestScore, setHighestScore] = useState('');
     const [appraisalCounts, setAppraisalCounts] = useState({});
     const [userEmail, setUserEmail] = useState('');
-    
+    const [privacy, setPrivacy] = useState('public');
+    const [filteredChats, setFilteredChats] = useState([]);
     
     // state variables for colour mode
     const [mode, setMode] = useState('dark');
@@ -91,20 +92,35 @@ export default function Home(){
         }
    }
 
+
+   
    // Function to fetch chats and appraisals
    const getChatsWithAppraisals = async (email) => {
     const chatRef = collection(db, "threads");
     const querySnapshot = await getDocs(chatRef);
     const docTitles = querySnapshot.docs.map(doc => ({
         id: doc.id,
-        data: doc.data()
+        data: doc.data(),
+        privacy: doc.data().privacy || 'public'
     }));
     const appraisals = {};
     docTitles.forEach(doc => {
         appraisals[doc.id] = doc.data.Appraisals ? doc.data.Appraisals.length : 0;
     });
     setChats(docTitles);
+    setFilteredChats(docTitles.filter(chat => chat.privacy === 'public'));
     setAppraisalCounts(appraisals);
+};
+
+const handlePrivacy = (event, newPrivacy) => {
+    if (newPrivacy !== null) {
+        setPrivacy(newPrivacy);
+        if (newPrivacy === 'public') {
+            setFilteredChats(chats.filter(chat => chat.privacy === 'public'));
+        } else {
+            setFilteredChats(chats.filter(chat => chat.privacy === userEmail));
+        }
+    }
 };
 
 const toggleAppraisal = async (threadId) => {
@@ -215,7 +231,6 @@ const toggleAppraisal = async (threadId) => {
                 getChatsWithAppraisals(user.email);
                 setIsLoading(false);
                 getNameByEmail(user.email);
-
 
                 // Add this section for colour modes
                 const unsubs = onSnapshot(doc(db,"users",user.email), (doc) => {
@@ -426,25 +441,28 @@ const toggleAppraisal = async (threadId) => {
 
                                     </Typography>
                                     <ToggleButtonGroup
-                                        color="secondary"
+                                        color="primary"
+                                        size="small"
+                                        value={privacy}
                                         exclusive
-                                        sx={{color:col4,
-                                            fontSize:'0.8em'
+                                        onChange={handlePrivacy}
+                                        sx={{
+                                        '& .MuiToggleButtonGroup-grouped': {
+                                            color: col4, 
+                                            borderColor: 'rgba(256,256,256,0.1)', 
+                                            '&.Mui-selected': {
+                                            backgroundColor: col1,
+                                            color: col4,
+                                            borderColor: 'rgba(256,256,256,0.2)',
+                                            },
+                                        },
                                         }}
                                         >
-                                            <ToggleButton value="private" sx={{color:col4}}>
-                                                <Typography>
-                                                    <PersonIcon/>
-                                                </Typography>
-                                            </ToggleButton>
-                                            <ToggleButton value="public" sx={{color:col4}}>
-                                                <Typography
-                                                    fontSize={'0.8em'}
-                                                >
-                                                    <PublicIcon/>
-                                                </Typography>
-                                            </ToggleButton>
+                                            <ToggleButton value="personal"><PersonIcon/></ToggleButton>
+                                            <ToggleButton value="public"><PublicIcon/></ToggleButton>
+                                            
                                     </ToggleButtonGroup>
+                                    
                                 </Box>
 
                                 {/*////////////////////// the saved chats here /////////////////////////////*/}
@@ -455,7 +473,7 @@ const toggleAppraisal = async (threadId) => {
                                     padding={'0.5em'}
                                     boxSizing={'border-box'}
                                 >
-                                    {chats.map((chat) =>(
+                                    {filteredChats.map((chat) =>(
                                     
                                         <Box
                                         key={chat}
