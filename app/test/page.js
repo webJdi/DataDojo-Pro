@@ -23,7 +23,7 @@ import QuestionCard from '../components/QuestionCard';
 import ResultDialog from '../components/ResultDialog';
 
 import {auth, db} from '../firebase';
-import {collection, query, where, getDocs, doc, updateDoc,arrayUnion, arrayRemove, onSnapshot } from 'firebase/firestore';
+import {collection, query, where, getDocs, getDoc, doc, updateDoc,arrayUnion, arrayRemove, onSnapshot } from 'firebase/firestore';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useLogout from '../components/logout';
@@ -47,6 +47,7 @@ export default function Home(){
     const [showResults, setShowResults] = useState(false);
     const [email, setEmail] = useState('');
     const [score, setScore] = useState(0);
+    const [finalScore, setFinalScore] = useState(0);
 
         // state variables for colour mode
         const [mode, setMode] = useState('dark');
@@ -91,7 +92,7 @@ export default function Home(){
         }
     };
 
-    const handleSubmitQuiz = () => {
+    const handleSubmitQuiz = async () => {
         let correctAnswers = 0;
         questions.forEach((question, index) => {
             if (userAnswers[index] === question.Answer) {
@@ -100,8 +101,14 @@ export default function Home(){
         });
         setScore(correctAnswers);
         const userRef = doc(db, 'users', email);
-        updateDoc(userRef, {
-          score: score + correctAnswers,
+        const userDoc = await getDoc(userRef);
+        let currentScore = 0;
+        if(userDoc.exists())
+        {
+            currentScore = userDoc.data().score + correctAnswers || 0;
+        }
+        await updateDoc(userRef, {
+          score: currentScore,
         })
         setShowResults(true);
         setTimeout(() => {

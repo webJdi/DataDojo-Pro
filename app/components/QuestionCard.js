@@ -157,7 +157,7 @@ const QuestionCard = ({ question, onAnswer, userAnswer, onNavigate, currentIndex
                         variant="contained" 
                         color="primary"
                         sx={{background:col5,
-                            color:col6,
+                            color:'#444',
                             '&:hover':
                             {
                                 background:col6,
@@ -188,7 +188,7 @@ const QuestionCard = ({ question, onAnswer, userAnswer, onNavigate, currentIndex
                                 '&:hover':
                                 {
                                     background:col6,
-                                    color:col5,
+                                    color:'#444',
                                     
                                 }
                             }}
