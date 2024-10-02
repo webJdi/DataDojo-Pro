@@ -372,7 +372,7 @@ const toggleAppraisal = async (threadId) => {
                                 variant="p"
                                 fontWeight={'200'}
                             >
-                                Global learning and Lorem Ipsum
+                                Data Structures and Algorithms for All using the Socratic way of learning!
                             </Typography>
                             <Box>
                                 <Button
