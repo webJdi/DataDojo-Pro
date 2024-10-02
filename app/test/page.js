@@ -45,6 +45,7 @@ export default function Home(){
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswers, setUserAnswers] = useState({});
     const [showResults, setShowResults] = useState(false);
+    const [email, setEmail] = useState('');
     const [score, setScore] = useState(0);
 
         // state variables for colour mode
@@ -98,7 +99,13 @@ export default function Home(){
             }
         });
         setScore(correctAnswers);
+        const userRef = doc(db, 'users', email);
+        updateDoc(userRef, {
+          score: score + correctAnswers,
+        })
         setShowResults(true);
+        router.push('/dashboard');
+        
     };
 
     useEffect(() => {
@@ -116,7 +123,7 @@ export default function Home(){
             if (user) {
                 console.log("User authenticated, setting loading to false");
                 setIsLoading(false);
-
+                setEmail(user.email);
                 // Add this section for colour modes
                 const unsubs = onSnapshot(doc(db,"users",user.email), (doc) => {
                     if (doc.exists()) {
@@ -288,7 +295,7 @@ return(
                                         variant='contained'
                                         sx={{
                                             bgcolor:col5,
-                                            color:col1,
+                                            color:'#444',
                                             borderRadius:'2em',
                                             padding:'0.8em 2em',
                                             '&:hover':{
