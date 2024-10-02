@@ -207,7 +207,7 @@ export default function ProblemSolver() {
                   sx={{
                     cursor: 'pointer',
                     '&:hover': {
-                      bgcolor: '#F2CC8F',
+                      bgcolor: col8,
                     },
                   }}
                 >
