@@ -1,50 +1,21 @@
 'use client';
 
-import { Paper, Typography, Tabs, Tab, Button, TextField, List, ListItem, ListItemText, Box, Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { Paper, Typography, Tabs, Tab, Button, TextField, List, ListItem, ListItemText, Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Editor } from '@monaco-editor/react';
 import { ref, push, set } from 'firebase/database';
 import { db } from '../firebase';
 import questions from './questions.json'; // Direct import from JSON
 import useLogout from '../components/logout';
-import Editor from '@monaco-editor/react';
-import {collection, query, where, getDocs, doc, updateDoc, onSnapshot} from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
-import HomeIcon from '@mui/icons-material/Home';
-import CodeIcon from '@mui/icons-material/Code';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import BoltIcon from '@mui/icons-material/Bolt';
-import Person4Icon from '@mui/icons-material/Person4';
-import {useEffect, useState} from 'react';
-import LogoutIcon from '@mui/icons-material/Logout';
-
-
-//Components
-
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Navbar from '../components/navbar';
 
 export default function ProblemSolver() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
-
-  // state variables for colour mode
   const [mode, setMode] = useState('dark');
-  const [col1, setCol1] = useState('#191c35'); // Darker shade
-  const [col2, setCol2] = useState('#E07A5F'); // red
-  const [col3, setCol3] = useState('#81B29A'); // green
-  const [col4, setCol4] = useState('#F4F1DE'); // white
-  const [col5, setCol5] = useState('#F2CC8F'); // yellow
-  const [col6, setCol6] = useState('#3D405B'); // Dark shade
-  const [col7, setCol7] = useState('#5FA8D3'); //Blue
-  const [col8, setCol8] = useState('#2b2d44'); //Darker shade
-
-
-  // For Handling undefined or non-integer id gracefully
-  
-
-  const isMobile = useMediaQuery('(max-width:450px)');
-
   const [language, setLanguage] = useState(0);
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
@@ -52,36 +23,26 @@ export default function ProblemSolver() {
   const [selectedQuestionId, setSelectedQuestionId] = useState('');
   const handleLogout = useLogout();
   const auth = getAuth();
-  const[user, setUser] = useState('');
+  const [user, setUser] = useState('');
 
+  const isMobile = useMediaQuery('(max-width:450px)');
+  const languages = ['python', 'javascript', 'c'];
 
-  const getScore = async(email) => {
-    console.log(email);
+  const getScore = async (email) => {
     try {
       const userRef = collection(db, "users");
-      const q = query(userRef, where("email", "==", email)); 
+      const q = query(userRef, where("email", "==", email));
       const querySnapshot = await getDocs(q);
-  
+
       if (!querySnapshot.empty) {
         const userDoc = querySnapshot.docs[0];
         const userData = userDoc.data();
-        setScore(userData.score); 
+        setScore(userData.score);
       }
+    } catch (error) {
+      console.log(error.message);
     }
-    catch(error)
-    {
-      console.log(error.messages);
-    }
-
   };
-
-  const handleLanguageChange = (event, newValue) => {
-    setLanguage(newValue);
-  };
-
-  const languages = ['python', 'javascript', 'c'];
-
-
 
   const handleQuestionSelect = (question) => {
     setSelectedQuestion(question);
@@ -90,150 +51,89 @@ export default function ProblemSolver() {
     setOutput('');
   };
 
-
-
   const handleRunCode = async () => {
-  try {
+    try {
+      // Prepare the payload directly with code and test cases
+      const payload = {
+        code: code,
+        testCases: selectedQuestion.testCases,
+      };
 
-    const messages = [
-      {
-        role: "system",
-        content: "You are a code execution engine that runs code and validates it against test cases.",
-      },
-      {
-        role: "user",
-        content: `Here is the code:\n${code}\nTest cases:\n${JSON.stringify(selectedQuestion.testCases)}`,
-      },
-    ];
+      const response = await fetch('/api/editor', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload), // Send the payload directly
+      });
 
-    const response = await fetch('/api/editor', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ messages }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let result = '';
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        break; 
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-      result += decoder.decode(value, { stream: true });
-    }
 
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let result = '';
 
-    setOutput(result);
-    const found = output.includes("You score! +1");
-    console.log(found);
-    if(found !="No match found.")
-    {
-      setScore(score+10);
-      console.log(user.email);
-      if (user.email)
-        {
-        const userRef = doc(db, 'users', user.email);
-        await updateDoc(userRef, {
-          score: score + 10,
-        });
-    }
-    return result;
-  }
-}
-  catch (error) {
-    console.error('Failed to fetch:', error);
-  }
-};
-
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-
-    // Add this section for colour modes
-    const unsubs = onSnapshot(doc(db,"users",currentUser.email), (doc) => {
-      if (doc.exists()) {
-        const userData = doc.data();
-        if (userData.mode) {
-          setMode(userData.mode);
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          break; 
         }
-        if(userData.mode == "light")
-          {
-              setCol1('#EDE8E2');
-              setCol2('#E07A5F');
-              setCol3('#81B29A');
-              setCol4('#000');
-              setCol5('#F2CC8F');
-              setCol6('#F4F1ED');
-              setCol7('#5FA8D3');
-              setCol8('#FFF'); 
-          }
-          else
-          {
-              setCol1('#191c35');
-              setCol2('#E07A5F');
-              setCol3('#81B29A');
-              setCol4('#F4F1DE');
-              setCol5('#F2CC8F');
-              setCol6('#3D405B');
-              setCol7('#5FA8D3');
-              setCol8('#2b2d44');
-          }
+        result += decoder.decode(value, { stream: true });
       }
-    });
-    return () => {
-      unsubs();
+
+      setOutput(result);
+
+      // Check the output for success message
+      const found = result.includes("You score! +1");
+      if (found) {
+        setScore((prevScore) => prevScore + 10);
+        if (user.email) {
+          const userRef = doc(db, 'users', user.email);
+          await updateDoc(userRef, {
+            score: score + 10,
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch:', error);
+    }
   };
-      // Colour modes' section ends here
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
 
+    return () => unsubscribe();
+  }, []);
 
-  });
-
-  return () => unsubscribe();
-}, []);
-
-useEffect(() => {
-  if (user?.email) {
-    getScore(user.email); 
-  }
-}, [user.email]);
-
-
-
+  useEffect(() => {
+    if (user?.email) {
+      getScore(user.email); 
+    }
+  }, [user]);
 
   return (
     <Box
       width="100vw"
       height="100vh"
-      bgcolor={col1}
       display={'flex'}
-      overflow={isMobile?'auto':'hidden'}
-      flexDirection={isMobile?'column':'row'}
+      overflow={isMobile ? 'auto' : 'hidden'}
+      flexDirection={isMobile ? 'column' : 'row'}
     >
-      <Navbar/>
+      <Navbar />
 
       <Box
         display="flex"
-        flexDirection={isMobile?'column':"row"}
-        bgcolor={col1}
+        flexDirection={isMobile ? 'column' : "row"}
         gap={2}
-        width={isMobile?"100vw":"80vw"}
+        width={isMobile ? "100vw" : "80vw"}
         height="92vh"
       >
-        <Box
-          flex={1}
-          width={isMobile?'95vw':'30vw'}
-          sx={{ p: 2 }}
-        >
-          <Paper elevation={3} sx={{ p: 2, mb: 2, bgcolor: col6, color: col4 }}>
+        <Box flex={1} width={isMobile ? '95vw' : '30vw'} sx={{ p: 2 }}>
+          <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
             <Typography variant="h6" gutterBottom>
               Problem Statement
             </Typography>
@@ -242,21 +142,18 @@ useEffect(() => {
                 <Box
                   key={question.id}
                   onClick={() => handleQuestionSelect(question)}
-                  color={selectedQuestionId === question.id ? col1 : col4}
-                  bgcolor={selectedQuestionId === question.id ? col3 : col1}
+                  bgcolor={selectedQuestionId === question.id ? '#81B29A' : '#F4F1DE'}
                   width={'100%'}
                   padding={'10px 0'}
-                  boxSizing={'border-box'}
-                  borderBottom={"1px solid "+ col1}
+                  borderBottom={"1px solid #E07A5F"}
                   display={'flex'}
                   alignItems={'center'}
                   justifyContent={'space-between'}
                   sx={{
-                    '&:hover':{
-                      bgcolor:col4,
-                      color:col1
+                    cursor: 'pointer',
+                    '&:hover': {
+                      bgcolor: '#F2CC8F',
                     },
-                    cursor: 'pointer'
                   }}
                 >
                   <Typography marginLeft={'1em'}>{question.problemStatement}</Typography>
@@ -266,81 +163,54 @@ useEffect(() => {
             </Box>
           </Paper>
           {selectedQuestion && (
-            <Paper elevation={3} sx={{ p: 2, bgcolor: col6, color: col4 }}>
+            <Paper elevation={3} sx={{ p: 2 }}>
               <Typography variant="h6" gutterBottom>
                 Test Cases for {selectedQuestion.shortTitle}
               </Typography>
-              <Box
-                height={'30vh'}
-                overflow={'auto'}
-              >
-              <List>
-                {selectedQuestion.testCases.map((testCase, index) => (
-                  <ListItem key={index} color={col4}>
-                    <ListItemText primary={`Input: ${testCase.input}`} secondary={`Expected Output: ${testCase.expectedOutput}`}
-                       sx={{ 
-                        "& .MuiTypography-root": { // Targeting the secondary text
-                          color: col3 // Your desired color
-                        }
-                      }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
+              <Box height={'30vh'} overflow={'auto'}>
+                <List>
+                  {selectedQuestion.testCases.map((testCase, index) => (
+                    <ListItem key={index}>
+                      <ListItemText primary={`Input: ${testCase.input}`} secondary={`Expected Output: ${testCase.expectedOutput}`} />
+                    </ListItem>
+                  ))}
+                </List>
               </Box>
             </Paper>
           )}
-          <Paper
-              elevation={3} sx={{ p: 2, mb: 2, bgcolor: col6, color: col4 }} marginTop={'2'}
-          >
-            <Typography variant="h6" sx={{ mt: 2 }}
-              textAlign={'center'}
-            >
+          <Paper elevation={3} sx={{ p: 2, mb: 2 }} marginTop={'2'}>
+            <Typography variant="h6" sx={{ mt: 2 }} textAlign={'center'}>
               Score 
-              <Typography
-                variant="span"
-                padding={'0.2em 0.8em'}
-                bgcolor={col3}
-                color={col4}
-                fontSize={'1.5em'}
-                borderRadius={'0.5em'}
-                margin={'0 0.2em'}
-              >
-                  {score}
+              <Typography variant="span" padding={'0.2em 0.8em'} bgcolor={'#81B29A'} fontSize={'1.5em'} borderRadius={'0.5em'} margin={'0 0.2em'}>
+                {score}
               </Typography>
-              
             </Typography>
           </Paper>
-          
         </Box>
-            
-        <Box width={isMobile?'95vw':'45vw'} flex={2} sx={{ p: 2, bgcolor: col1 }}>
-          <Paper elevation={3} sx={{ p: 2, bgcolor: col6, color: col4 }}>
-            <Tabs value={language} onChange={handleLanguageChange} sx={{ color: col4 }}>
-              <Tab label="Python" sx={{ color: col4 }} />
-              <Tab label="JavaScript" sx={{ color: col4 }} />
-              <Tab label="C" sx={{ color: col4 }} />
+          
+        <Box width={isMobile ? '95vw' : '45vw'} flex={2} sx={{ p: 2 }}>
+          <Paper elevation={3} sx={{ p: 2 }}>
+            <Tabs value={language} onChange={(event, newValue) => setLanguage(newValue)}>
+              <Tab label="Python" />
+              <Tab label="JavaScript" />
+              <Tab label="C" />
             </Tabs>
             <Box sx={{ mt: 2 }}>
-              
               <Editor
-                  height="30vh"
-                  language={languages[language]} 
-                  value={code}
-                  theme="vs-dark"
-                  onChange={(value) => setCode(value)}
-                  options={{
-                    fontSize: 18,
-                    fontFamily: ' monospace', 
-                    lineHeight: 22, 
-                    
-                  }}
+                height="30vh"
+                language={languages[language]} 
+                value={code}
+                theme="vs-dark"
+                onChange={(value) => setCode(value)}
+                options={{
+                  fontSize: 18,
+                  fontFamily: 'monospace', 
+                  lineHeight: 22, 
+                }}
               />
-
-              
             </Box>
             <Box sx={{ mt: 2 }}>
-              <Button variant="contained" sx={{ bgcolor: col2 }} startIcon={<PlayArrowIcon />} onClick={handleRunCode}>
+              <Button variant="contained" startIcon={<PlayArrowIcon />} onClick={handleRunCode}>
                 Run Code
               </Button>
             </Box>
@@ -348,22 +218,17 @@ useEffect(() => {
               <Typography variant="h6" gutterBottom>
                 Output
               </Typography>
-              <TextField sx={{
-                            '& .MuiOutlinedInput-root': {
-                              '& .MuiInputBase-input': {
-                                color: col4, // Change the font color
-                              },
-                            },
-                          }}
-                          fullWidth multiline rows={6} variant="outlined" value={output} InputProps={{ readOnly: true }}>
-                {output}
-              </TextField>
+              <TextField 
+                fullWidth 
+                multiline 
+                rows={6} 
+                variant="outlined" 
+                value={output} 
+                InputProps={{ readOnly: true }}
+              />
             </Box>
           </Paper>
         </Box>
-
-
-
       </Box>
     </Box>
   );

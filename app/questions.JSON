@@ -1,86 +1,369 @@
 {
-    "questions": [
-      {
-        "id": 1,
-        "problemStatement": "Write a function that adds two numbers",
-        "testCases": [
-          { "input": "2, 3", "expectedOutput": "5" },
-          { "input": "-1, 5", "expectedOutput": "4" },
-          { "input": "0, 0", "expectedOutput": "0" },
-          { "input": "10, -10", "expectedOutput": "0" },
-          { "input": "1000, 1", "expectedOutput": "1001" }
-        ]
-      },
-      {
-        "id": 2,
-        "problemStatement": "Write a function that returns the factorial of a number",
-        "testCases": [
-          { "input": "5", "expectedOutput": "120" },
-          { "input": "0", "expectedOutput": "1" },
-          { "input": "1", "expectedOutput": "1" },
-          { "input": "10", "expectedOutput": "3628800" }
-        ]
-      },
-      {
-        "id": 3,
-        "problemStatement": "Write a function to reverse a string",
-        "testCases": [
-          { "input": "\"hello\"", "expectedOutput": "\"olleh\"" },
-          { "input": "\"world\"", "expectedOutput": "\"dlrow\"" },
-          { "input": "\"\"", "expectedOutput": "\"\"" },
-          { "input": "\"a\"", "expectedOutput": "\"a\"" }
-        ]
-      },
-      {
-        "id": 4,
-        "problemStatement": "Write a function to check if a number is prime",
-        "testCases": [
-          { "input": "2", "expectedOutput": "true" },
-          { "input": "4", "expectedOutput": "false" },
-          { "input": "13", "expectedOutput": "true" },
-          { "input": "1", "expectedOutput": "false" }
-        ]
-      },
-      {
-        "id": 5,
-        "problemStatement": "Write a function to find the greatest common divisor (GCD) of two numbers",
-        "testCases": [
-          { "input": "12, 15", "expectedOutput": "3" },
-          { "input": "100, 10", "expectedOutput": "10" },
-          { "input": "7, 13", "expectedOutput": "1" },
-          { "input": "18, 24", "expectedOutput": "6" }
-        ]
-      },
-      {
-        "id": 6,
-        "problemStatement": "Write a function to implement binary search on a sorted array",
-        "testCases": [
-          { "input": "[1, 2, 3, 4, 5], 3", "expectedOutput": "2" },
-          { "input": "[1, 2, 3, 4, 5], 1", "expectedOutput": "0" },
-          { "input": "[1, 2, 3, 4, 5], 5", "expectedOutput": "4" },
-          { "input": "[1, 2, 3, 4, 5], 6", "expectedOutput": "-1" }
-        ]
-      },
-      {
-        "id": 7,
-        "problemStatement": "Write a function to find the longest common prefix among an array of strings",
-        "testCases": [
-          { "input": "[\"flower\", \"flow\", \"flight\"]", "expectedOutput": "\"fl\"" },
-          { "input": "[\"dog\", \"racecar\", \"car\"]", "expectedOutput": "\"\"" },
-          { "input": "[\"interview\", \"interval\", \"interact\"]", "expectedOutput": "\"inter\"" },
-          { "input": "[\"a\", \"b\", \"c\"]", "expectedOutput": "\"\"" }
-        ]
-      },
-      {
-        "id": 8,
-        "problemStatement": "Write a function to check if a string is a palindrome",
-        "testCases": [
-          { "input": "\"racecar\"", "expectedOutput": "true" },
-          { "input": "\"hello\"", "expectedOutput": "false" },
-          { "input": "\"madam\"", "expectedOutput": "true" },
-          { "input": "\"\"", "expectedOutput": "true" }
-        ]
-      }
-    ]
-  }
-  
+  "questions": [
+    {
+      "id": 1,
+      "problemStatement": "Implement a function to find the maximum subarray sum in an array of integers",
+      "testCases": [
+        { "input": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]", "expectedOutput": "6" },
+        { "input": "[1]", "expectedOutput": "1" },
+        { "input": "[-1]", "expectedOutput": "-1" },
+        { "input": "[-2, -1]", "expectedOutput": "-1" }
+      ]
+    },
+    {
+      "id": 2,
+      "problemStatement": "Implement a function to detect if a linked list has a cycle",
+      "testCases": [
+        { "input": "[3,2,0,-4], pos = 1", "expectedOutput": "true" },
+        { "input": "[1,2], pos = 0", "expectedOutput": "true" },
+        { "input": "[1], pos = -1", "expectedOutput": "false" },
+        { "input": "[1,2,3,4], pos = -1", "expectedOutput": "false" }
+      ]
+    },
+    {
+      "id": 3,
+      "problemStatement": "Implement a function to merge two sorted arrays into a single sorted array",
+      "testCases": [
+        { "input": "[1,3,5], [2,4,6]", "expectedOutput": "[1,2,3,4,5,6]" },
+        { "input": "[1,2,3], [4,5,6]", "expectedOutput": "[1,2,3,4,5,6]" },
+        { "input": "[], [1,2,3]", "expectedOutput": "[1,2,3]" },
+        { "input": "[1], []", "expectedOutput": "[1]" }
+      ]
+    },
+    {
+      "id": 4,
+      "problemStatement": "Implement a function to find the longest palindromic substring in a string",
+      "testCases": [
+        { "input": "\"babad\"", "expectedOutput": "\"bab\" or \"aba\"" },
+        { "input": "\"cbbd\"", "expectedOutput": "\"bb\"" },
+        { "input": "\"a\"", "expectedOutput": "\"a\"" },
+        { "input": "\"ac\"", "expectedOutput": "\"a\" or \"c\"" }
+      ]
+    },
+    {
+      "id": 5,
+      "problemStatement": "Implement a function to validate a binary search tree",
+      "testCases": [
+        { "input": "[2,1,3]", "expectedOutput": "true" },
+        { "input": "[5,1,4,null,null,3,6]", "expectedOutput": "false" },
+        { "input": "[1]", "expectedOutput": "true" },
+        { "input": "[5,4,6,null,null,3,7]", "expectedOutput": "false" }
+      ]
+    },
+    {
+      "id": 6,
+      "problemStatement": "Implement a function to find the kth largest element in an unsorted array",
+      "testCases": [
+        { "input": "[3,2,1,5,6,4], k = 2", "expectedOutput": "5" },
+        { "input": "[3,2,3,1,2,4,5,5,6], k = 4", "expectedOutput": "4" },
+        { "input": "[1], k = 1", "expectedOutput": "1" },
+        { "input": "[7,6,5,4,3,2,1], k = 5", "expectedOutput": "3" }
+      ]
+    },
+    {
+      "id": 7,
+      "problemStatement": "Implement a function to find all unique triplets in the array which gives the sum of zero",
+      "testCases": [
+        { "input": "[-1,0,1,2,-1,-4]", "expectedOutput": "[[-1,-1,2],[-1,0,1]]" },
+        { "input": "[0,1,1]", "expectedOutput": "[]" },
+        { "input": "[0,0,0]", "expectedOutput": "[[0,0,0]]" },
+        { "input": "[-2,0,1,1,2]", "expectedOutput": "[[-2,0,2],[-2,1,1]]" }
+      ]
+    },
+    {
+      "id": 8,
+      "problemStatement": "Implement a function to serialize and deserialize a binary tree",
+      "testCases": [
+        { "input": "[1,2,3,null,null,4,5]", "expectedOutput": "[1,2,3,null,null,4,5]" },
+        { "input": "[]", "expectedOutput": "[]" },
+        { "input": "[1]", "expectedOutput": "[1]" },
+        { "input": "[1,2,3,null,null,4,5,6,7]", "expectedOutput": "[1,2,3,null,null,4,5,6,7]" }
+      ]
+    },
+    {
+      "id": 9,
+      "problemStatement": "Implement a function to find the median of two sorted arrays",
+      "testCases": [
+        { "input": "[1,3], [2]", "expectedOutput": "2.0" },
+        { "input": "[1,2], [3,4]", "expectedOutput": "2.5" },
+        { "input": "[0,0], [0,0]", "expectedOutput": "0.0" },
+        { "input": "[], [1]", "expectedOutput": "1.0" }
+      ]
+    },
+    {
+      "id": 10,
+      "problemStatement": "Implement a function to find the longest substring without repeating characters",
+      "testCases": [
+        { "input": "\"abcabcbb\"", "expectedOutput": "3" },
+        { "input": "\"bbbbb\"", "expectedOutput": "1" },
+        { "input": "\"pwwkew\"", "expectedOutput": "3" },
+        { "input": "\"\"", "expectedOutput": "0" }
+      ]
+    },
+
+        {
+          "id": 11,
+          "problemStatement": "Implement a function to find the maximum subarray sum in an array of integers",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]", "expectedOutput": "6" },
+            { "input": "[1]", "expectedOutput": "1" },
+            { "input": "[-1]", "expectedOutput": "-1" },
+            { "input": "[-2, -1]", "expectedOutput": "-1" }
+          ]
+        },
+        {
+          "id": 12,
+          "problemStatement": "Implement a function to detect if a linked list has a cycle",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[3,2,0,-4], pos = 1", "expectedOutput": "true" },
+            { "input": "[1,2], pos = 0", "expectedOutput": "true" },
+            { "input": "[1], pos = -1", "expectedOutput": "false" },
+            { "input": "[1,2,3,4], pos = -1", "expectedOutput": "false" }
+          ]
+        },
+        {
+          "id": 13,
+          "problemStatement": "Implement a function to merge two sorted arrays into a single sorted array",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[1,3,5], [2,4,6]", "expectedOutput": "[1,2,3,4,5,6]" },
+            { "input": "[1,2,3], [4,5,6]", "expectedOutput": "[1,2,3,4,5,6]" },
+            { "input": "[], [1,2,3]", "expectedOutput": "[1,2,3]" },
+            { "input": "[1], []", "expectedOutput": "[1]" }
+          ]
+        },
+        {
+          "id": 14,
+          "problemStatement": "Implement a function to find the longest palindromic substring in a string",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "\"babad\"", "expectedOutput": "\"bab\" or \"aba\"" },
+            { "input": "\"cbbd\"", "expectedOutput": "\"bb\"" },
+            { "input": "\"a\"", "expectedOutput": "\"a\"" },
+            { "input": "\"ac\"", "expectedOutput": "\"a\" or \"c\"" }
+          ]
+        },
+        {
+          "id": 15,
+          "problemStatement": "Implement a function to validate a binary search tree",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "[2,1,3]", "expectedOutput": "true" },
+            { "input": "[5,1,4,null,null,3,6]", "expectedOutput": "false" },
+            { "input": "[1]", "expectedOutput": "true" },
+            { "input": "[5,4,6,null,null,3,7]", "expectedOutput": "false" }
+          ]
+        },
+        {
+          "id": 16,
+          "problemStatement": "Implement a function to find the kth largest element in an unsorted array",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "[3,2,1,5,6,4], k = 2", "expectedOutput": "5" },
+            { "input": "[3,2,3,1,2,4,5,5,6], k = 4", "expectedOutput": "4" },
+            { "input": "[1], k = 1", "expectedOutput": "1" },
+            { "input": "[7,6,5,4,3,2,1], k = 5", "expectedOutput": "3" }
+          ]
+        },
+        {
+          "id": 17,
+          "problemStatement": "Implement a function to find all unique triplets in the array which gives the sum of zero",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "[-1,0,1,2,-1,-4]", "expectedOutput": "[[-1,-1,2],[-1,0,1]]" },
+            { "input": "[0,1,1]", "expectedOutput": "[]" },
+            { "input": "[0,0,0]", "expectedOutput": "[[0,0,0]]" },
+            { "input": "[-2,0,1,1,2]", "expectedOutput": "[[-2,0,2],[-2,1,1]]" }
+          ]
+        },
+        {
+          "id": 18,
+          "problemStatement": "Implement a function to serialize and deserialize a binary tree",
+          "difficulty": "hard",
+          "testCases": [
+            { "input": "[1,2,3,null,null,4,5]", "expectedOutput": "[1,2,3,null,null,4,5]" },
+            { "input": "[]", "expectedOutput": "[]" },
+            { "input": "[1]", "expectedOutput": "[1]" },
+            { "input": "[1,2,3,null,null,4,5,6,7]", "expectedOutput": "[1,2,3,null,null,4,5,6,7]" }
+          ]
+        },
+        {
+          "id": 19,
+          "problemStatement": "Implement a function to find the median of two sorted arrays",
+          "difficulty": "hard",
+          "testCases": [
+            { "input": "[1,3], [2]", "expectedOutput": "2.0" },
+            { "input": "[1,2], [3,4]", "expectedOutput": "2.5" },
+            { "input": "[0,0], [0,0]", "expectedOutput": "0.0" },
+            { "input": "[], [1]", "expectedOutput": "1.0" }
+          ]
+        },
+        {
+          "id": 20,
+          "problemStatement": "Implement a function to find the longest substring without repeating characters",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "\"abcabcbb\"", "expectedOutput": "3" },
+            { "input": "\"bbbbb\"", "expectedOutput": "1" },
+            { "input": "\"pwwkew\"", "expectedOutput": "3" },
+            { "input": "\"\"", "expectedOutput": "0" }
+          ]
+        },
+        {
+          "id": 21,
+          "problemStatement": "Implement a function to reverse a linked list",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[1,2,3,4,5]", "expectedOutput": "[5,4,3,2,1]" },
+            { "input": "[1,2]", "expectedOutput": "[2,1]" },
+            { "input": "[]", "expectedOutput": "[]" },
+            { "input": "[1]", "expectedOutput": "[1]" }
+          ]
+        },
+        {
+          "id": 22,
+          "problemStatement": "Implement a function to find the minimum depth of a binary tree",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[3,9,20,null,null,15,7]", "expectedOutput": "2" },
+            { "input": "[2,null,3,null,4,null,5,null,6]", "expectedOutput": "5" },
+            { "input": "[]", "expectedOutput": "0" },
+            { "input": "[1]", "expectedOutput": "1" }
+          ]
+        },
+        {
+          "id": 23,
+          "problemStatement": "Implement a function to find the intersection of two arrays",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[1,2,2,1], [2,2]", "expectedOutput": "[2]" },
+            { "input": "[4,9,5], [9,4,9,8,4]", "expectedOutput": "[9,4]" },
+            { "input": "[1,2,3], [4,5,6]", "expectedOutput": "[]" },
+            { "input": "[1,1,1,1], [1,1]", "expectedOutput": "[1]" }
+          ]
+        },
+        {
+          "id": 24,
+          "problemStatement": "Implement a function to find the single number in an array where every element appears twice except for one",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[2,2,1]", "expectedOutput": "1" },
+            { "input": "[4,1,2,1,2]", "expectedOutput": "4" },
+            { "input": "[1]", "expectedOutput": "1" },
+            { "input": "[1,1,2,2,3,3,4]", "expectedOutput": "4" }
+          ]
+        },
+        {
+          "id": 25,
+          "problemStatement": "Implement a function to find the majority element in an array",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[3,2,3]", "expectedOutput": "3" },
+            { "input": "[2,2,1,1,1,2,2]", "expectedOutput": "2" },
+            { "input": "[1]", "expectedOutput": "1" },
+            { "input": "[1,2,3,4,5,5,5,5,5]", "expectedOutput": "5" }
+          ]
+        },
+        {
+          "id": 26,
+          "problemStatement": "Implement a function to determine if a string is a valid palindrome, considering only alphanumeric characters and ignoring cases",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "\"A man, a plan, a canal: Panama\"", "expectedOutput": "true" },
+            { "input": "\"race a car\"", "expectedOutput": "false" },
+            { "input": "\" \"", "expectedOutput": "true" },
+            { "input": "\"0P\"", "expectedOutput": "false" }
+          ]
+        },
+        {
+          "id": 27,
+          "problemStatement": "Implement a function to find the longest common prefix string amongst an array of strings",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[\"flower\",\"flow\",\"flight\"]", "expectedOutput": "\"fl\"" },
+            { "input": "[\"dog\",\"racecar\",\"car\"]", "expectedOutput": "\"\"" },
+            { "input": "[\"interspecies\",\"interstellar\",\"interstate\"]", "expectedOutput": "\"inters\"" },
+            { "input": "[\"a\"]", "expectedOutput": "\"a\"" }
+          ]
+        },
+        {
+          "id": 28,
+          "problemStatement": "Implement a function to remove all instances of a given value from an array in-place",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[3,2,2,3], val = 3", "expectedOutput": "[2,2], length = 2" },
+            { "input": "[0,1,2,2,3,0,4,2], val = 2", "expectedOutput": "[0,1,3,0,4], length = 5" },
+            { "input": "[1], val = 1", "expectedOutput": "[], length = 0" },
+            { "input": "[1,1,1], val = 1", "expectedOutput": "[], length = 0" }
+          ]
+        },
+        {
+          "id": 29,
+          "problemStatement": "Implement a function to determine if a string has all unique characters",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "\"abcdefg\"", "expectedOutput": "true" },
+            { "input": "\"abcdefga\"", "expectedOutput": "false" },
+            { "input": "\"\"", "expectedOutput": "true" },
+            { "input": "\"aA\"", "expectedOutput": "true" }
+          ]
+        },
+        {
+          "id": 30,
+          "problemStatement": "Implement a function to find the missing number in an array containing n distinct numbers taken from 0 to n",
+          "difficulty": "easy",
+          "testCases": [
+            { "input": "[3,0,1]", "expectedOutput": "2" },
+            { "input": "[0,1]", "expectedOutput": "2" },
+            { "input": "[9,6,4,2,3,5,7,0,1]", "expectedOutput": "8" },
+            { "input": "[0]", "expectedOutput": "1" }
+          ]
+        },
+        {
+          "id": 31,
+          "problemStatement": "Implement a function to find all possible combinations of k numbers that add up to a number n",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "k = 3, n = 7", "expectedOutput": "[[1,2,4]]" },
+            { "input": "k = 3, n = 9", "expectedOutput": "[[1,2,6],[1,3,5],[2,3,4]]" },
+            { "input": "k = 4, n = 1", "expectedOutput": "[]" },
+            { "input": "k = 2, n = 5", "expectedOutput": "[[1,4],[2,3]]" }
+          ]
+        },
+        {
+          "id": 32,
+          "problemStatement": "Implement a function to find the length of the longest consecutive elements sequence in an unsorted array",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "[100,4,200,1,3,2]", "expectedOutput": "4" },
+            { "input": "[0,3,7,2,5,8,4,6,0,1]", "expectedOutput": "9" },
+            { "input": "[]", "expectedOutput": "0" },
+            { "input": "[1,2,0,1]", "expectedOutput": "3" }
+          ]
+        },
+        {
+          "id": 33,
+          "problemStatement": "Implement a function to find all unique paths from top left to bottom right of a m x n grid",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "m = 3, n = 7", "expectedOutput": "28" },
+            { "input": "m = 3, n = 2", "expectedOutput": "3" },
+            { "input": "m = 7, n = 3", "expectedOutput": "28" },
+            { "input": "m = 1, n = 1", "expectedOutput": "1" }
+          ]
+        },
+        {
+          "id": 34,
+          "problemStatement": "Implement a function to find the minimum number of jumps to reach the last index in an array",
+          "difficulty": "medium",
+          "testCases": [
+            { "input": "[2,3,1,1,4]", "expectedOutput": "2" },
+            { "input": "[2,3,0,1,4]", "expectedOutput": "2" },
+            { "input": "[1,1,1,1]", "expectedOutput": "3" },
+            { "input": "[1]", "expectedOutput": "0" }
+          ]
+        }
+      ]
+}
