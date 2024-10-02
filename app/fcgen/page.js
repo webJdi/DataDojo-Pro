@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { useEffect } from "react";
 import useLogout from '../components/logout';
 import Image from "next/image";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 //Components
 import Navbar from "../components/navbar";
@@ -37,6 +38,7 @@ export default function Generate(){
     const [name, setName] = useState('')
     const [open, setOpen] = useState(false)
     
+    const isMobile = useMediaQuery('(max-width:450px)');
 
         // state variables for colour mode
     const [mode, setMode] = useState('dark');
@@ -207,9 +209,6 @@ export default function Generate(){
 
         // Redirect section ends
 
-    const bgOne = '#40407a'
-    const bgTwo = '#706fd3'
-    const bgThree = "#fff"
 
     return(
             <Box
@@ -217,7 +216,8 @@ export default function Generate(){
             minHeight={'100vh'}
             backgroundColor={col1}
             display={'flex'}
-            overflow={'hidden'}
+            overflow={isMobile?'auto':'hidden'}
+            flexDirection={isMobile?'column':'row'}
             >
                     <Navbar />
                     <Box
@@ -225,7 +225,8 @@ export default function Generate(){
                             position:'fixed',
                             top:'24vh',
                             right:'-100px',
-                            transform:'rotateZ(-45deg)'
+                            transform:'rotateZ(-45deg)',
+                            display:isMobile?'none':'static'
                         }}
                     >
                         <Image
@@ -237,14 +238,14 @@ export default function Generate(){
                     </Box>
                         
                     <Box
-                        width={'80vw'}
+                        width={isMobile?'100vw':'80vw'}
                         height={'100vh'}
                         bgcolor={col1}
                         display={'flex'}
                         flexDirection={'column'}
                     >
                         <Box
-                            width={'76vw'}
+                            width={isMobile?'96vw':'76vw'}
                             height={'25vh'}
                             margin={'4vh 2vw 2vh 2vw'}
                             
@@ -263,12 +264,14 @@ export default function Generate(){
                             <Box
                                 width={'100%'}
                                 display={'flex'}
-                                flexDirection={'row'}
-                                justifyContent={'center'}
+                                flexDirection={isMobile?'column':'row'}
+                                justifyContent={isMobile?'flex-start':'center'}
                                 alignItems={'center'}
                             >
                                 <Box
                                     width={'85%'}
+                                    display={isMobile?'flex':'static'}
+                                    
                                 >
                                     <TextField
                                         value={text}
@@ -325,7 +328,7 @@ export default function Generate(){
                             
                         </Box>
                         <Box
-                            width={'76vw'}
+                            width={isMobile?'100vw':'76vw'}
                             height={'75vh'}
                             margin={'0 2vw 4vh 2vw'}
                             
@@ -335,7 +338,7 @@ export default function Generate(){
                                 flashcards.length>0 && (<Box>
                                     <Box
                                         display={'flex'}
-                                        flexDirection={'row'}
+                                        flexDirection={isMobile?'column':'row'}
                                         justifyContent={'space-between'}
                                     >
                                         <Box>
@@ -357,7 +360,11 @@ export default function Generate(){
                                         
 
                                         
-                                        <Box width={'20vw'} sx={{display:'flex', justifyContent:'flex-start'}}>
+                                        <Box
+                                            width={'20vw'}
+                                            sx={{display:'flex',
+                                                justifyContent:'flex-start'
+                                                }}>
                                             <Button
                                                 variant="contained"
                                                 onClick={handleOpen}
@@ -380,11 +387,11 @@ export default function Generate(){
                                         justifyContent={'flex-start'}
                                     >
                                         <Box
-                                            width={'60vw'}
-                                            height={'60vh'}
-                                            overflow={'hidden'}
+                                            width={isMobile?'100vw':'60vw'}
+                                            height={isMobile?'auto':'60vh'}
+                                            overflow={isMobile?'auto':'hidden'}
                                         >
-                                            <Grid container spacing={4}
+                                            <Grid container spacing={isMobile?2:4}
                                             
                                             >
                                         {flashcards.map((flashcard, index) =>
@@ -452,7 +459,7 @@ export default function Generate(){
                                                                             <Typography
                                                                             color={col5}
                                                                             variant="h6"
-                                                                            fontSize={'0.8em'}
+                                                                            fontSize={isMobile?'0.6em':'0.8em'}
                                                                             textAlign={'center'}
                                                                             display={'block'}
                                                                             fontWeight={'800'}
@@ -468,7 +475,7 @@ export default function Generate(){
                                                                         >
                                                                         <Typography
                                                                             variant="h6"
-                                                                            fontSize={'1.1em'}
+                                                                            fontSize={isMobile?'0.8em':'1.1em'}
                                                                             component="div"
                                                                             color={col4}
                                                                         >
