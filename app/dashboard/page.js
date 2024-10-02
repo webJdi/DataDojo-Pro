@@ -372,7 +372,7 @@ const toggleAppraisal = async (threadId) => {
                                 variant="p"
                                 fontWeight={'200'}
                             >
-                                Global learning and Lorem Ipsum
+                                An all-rounder platform to get you from zero to pro in DSA
                             </Typography>
                             <Box>
                                 <Button
@@ -400,7 +400,7 @@ const toggleAppraisal = async (threadId) => {
                             top={'0'}
                             >
                                 <Image
-                                    src={'/leafs.png'}
+                                    src={'/Leafs.png'}
                                     height={isMobile?'120':'154'}
                                     width={isMobile?'240':'200'}
                                 />
