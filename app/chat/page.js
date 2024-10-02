@@ -11,7 +11,7 @@ import { collection, addDoc, doc, setDoc, onSnapshot} from 'firebase/firestore';
 import { useRouter } from "next/navigation";
 import useLogout from '../components/logout';
 import {CircularProgress} from '@mui/material';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 //Components
 import Navbar from "../components/navbar";
@@ -74,7 +74,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [authError, setAuthError] = useState(null);
 
-
+  const isMobile = useMediaQuery('(max-width:450px)');
 
   const darkMode = () => {
     if (mode === "light") {
@@ -305,9 +305,6 @@ if (authError) {
 
   return (
     
-
-
-
     <Box
       backgroundColor={col1}
       width={'100vw'}
@@ -315,14 +312,16 @@ if (authError) {
       overflow={'hidden'}
       boxSizing={'border-box'}
       display={'flex'}
-      
+      flexDirection={isMobile?'column':'row'}
+      justifyContent={'center'}
+      alignContent={'center'}
     >
       <Navbar/>      
                         
       <Box
-        height={'85vh'}
+        height={isMobile?'85vh':'85vh'}
         padding={'1em'}
-        width={{ xs: '90vw', sm: '80vw', md: '80vw' }}
+        width={isMobile? '100vw':'80vw' }
       >
         <Stack
           direction={'column'}
@@ -355,8 +354,8 @@ if (authError) {
       </Box>
       <Box
         position={"fixed"}
-        bottom={{xs:'0',sm:'5vh',md:'5vh'}}
-        right={'10vw'}
+        bottom={{xs:'1vh',sm:'5vh',md:'5vh'}}
+        right={{xs:'5vw',md:'10vw'}}
         width={{ xs: '90vw', sm: '80vw', md: '60vw' }}
         display={'flex'}
         alignContent={'center'}

@@ -348,7 +348,7 @@ const toggleAppraisal = async (threadId) => {
                         {/*////////////////////// Top colourful Box  starts //////////////////////*/}
                         <Box
                             width={isMobile?'90vw':'76vw'}
-                            height={isMobile?'25vh':'20vh'}
+                            minHeight={isMobile?'25vh':'20vh'}
                             bgcolor={col3}
                             margin={'3vh 2vw'}
                             borderRadius={'0.2em'}
