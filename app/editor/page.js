@@ -10,7 +10,7 @@ import useLogout from '../components/logout';
 import Editor from '@monaco-editor/react';
 import {collection, query, where, getDocs, doc, updateDoc, onSnapshot} from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import HomeIcon from '@mui/icons-material/Home';
 import CodeIcon from '@mui/icons-material/Code';
@@ -43,7 +43,7 @@ export default function ProblemSolver() {
   // For Handling undefined or non-integer id gracefully
   
 
-
+  const isMobile = useMediaQuery('(max-width:450px)');
 
   const [language, setLanguage] = useState(0);
   const [code, setCode] = useState('');
@@ -210,11 +210,29 @@ useEffect(() => {
 
 
   return (
-    <Box width="100vw" height="100vh" bgcolor={col1} display={'flex'} overflow={'hidden'}>
+    <Box
+      width="100vw"
+      height="100vh"
+      bgcolor={col1}
+      display={'flex'}
+      overflow={isMobile?'auto':'hidden'}
+      flexDirection={isMobile?'column':'row'}
+    >
       <Navbar/>
 
-      <Box display="flex" flexDirection="row" bgcolor={col1} gap={2} width="80vw" height="92vh">
-        <Box flex={1} width={'30vw'} sx={{ p: 2 }}>
+      <Box
+        display="flex"
+        flexDirection={isMobile?'column':"row"}
+        bgcolor={col1}
+        gap={2}
+        width={isMobile?"100vw":"80vw"}
+        height="92vh"
+      >
+        <Box
+          flex={1}
+          width={isMobile?'95vw':'30vw'}
+          sx={{ p: 2 }}
+        >
           <Paper elevation={3} sx={{ p: 2, mb: 2, bgcolor: col6, color: col4 }}>
             <Typography variant="h6" gutterBottom>
               Problem Statement
@@ -296,7 +314,7 @@ useEffect(() => {
           
         </Box>
             
-        <Box width={'45vw'} flex={2} sx={{ p: 2, bgcolor: col1 }}>
+        <Box width={isMobile?'95vw':'45vw'} flex={2} sx={{ p: 2, bgcolor: col1 }}>
           <Paper elevation={3} sx={{ p: 2, bgcolor: col6, color: col4 }}>
             <Tabs value={language} onChange={handleLanguageChange} sx={{ color: col4 }}>
               <Tab label="Python" sx={{ color: col4 }} />
