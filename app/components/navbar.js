@@ -298,7 +298,7 @@ const Navbar = () => {
                                     <Box
                                         width={'40vw'}
                                         maxHeight={'50vh'}
-                                        
+                                        overflow={'auto'}
                                         sx={{
                                         position: 'absolute',
                                         top: '50%',
