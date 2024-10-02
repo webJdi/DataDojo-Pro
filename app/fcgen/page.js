@@ -40,7 +40,7 @@ export default function Generate(){
     
     const isMobile = useMediaQuery('(max-width:450px)');
 
-        // state variables for colour mode
+    // state variables for colour mode
     const [mode, setMode] = useState('dark');
     const [col1, setCol1] = useState('#191c35'); // Darker shade
     const [col2, setCol2] = useState('#E07A5F'); // red
