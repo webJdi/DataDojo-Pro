@@ -21,6 +21,7 @@ import StarIcon from "@mui/icons-material/Star";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import BookIcon from "@mui/icons-material/Book";
 import BoltIcon from '@mui/icons-material/Bolt';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { auth, db } from "../firebase";
 import { collection, query, where, getDocs, doc, onSnapshot } from "firebase/firestore";
@@ -44,6 +45,8 @@ export default function Profile() {
   const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(''); // New state variable for the error message
+
+  const isMobile = useMediaQuery('(max-width:450px)');
 
   // state variables for colour mode
   const [mode, setMode] = useState('dark');
@@ -108,12 +111,10 @@ export default function Profile() {
     const credential = EmailAuthProvider.credential(user.email, oldPassword);
   
     try {
-      // Reauthenticate the user with the old password
       await reauthenticateWithCredential(user, credential);
       console.log("Reauthentication successful");
     } catch (error) {
   
-      // Handle specific errors
       if (error.code === 'auth/invalid-credential') {
         setErrorMessage('Incorrect old password.');
       } else if (error.code === 'auth/too-many-requests') {
@@ -122,8 +123,8 @@ export default function Profile() {
         setErrorMessage('An error occurred during reauthentication. Please try again.');
       }
       
-      setPasswordError(true); // Trigger UI error display
-      return; // Exit the function if reauthentication fails
+      setPasswordError(true); 
+      return; 
     }
   
     try {
@@ -235,20 +236,20 @@ export default function Profile() {
       backgroundColor={col1}
       display={'flex'}
       overflow={'hidden'}
+      flexDirection={isMobile?'column':'row'}
     >
-      <Navbar mode={mode} setMode={setMode} /> {/* Pass mode and setMode to Navbar */}
+      <Navbar mode={mode} setMode={setMode} />
 
       <Box
-        width={'80vw'}
+        width={isMobile?'100vw':'80vw'}
         height={'100vh'}
         bgcolor={col1}
         display={'flex'}
         flexDirection={'column'}
       >
         <Box
-          width={'76vw'}
+          width={isMobile?'96vw':'76vw'}
           margin={'4vh 2vw 2vh 2vw'}
-
           borderRadius={'0.2em'}
           color={col4}
           padding={'1em'}
@@ -261,12 +262,20 @@ export default function Profile() {
             </IconButton>
           </Box>
 
-          <Stack spacing={3} sx={{ px: 4, pb: 4,  flexGrow: 1 }}>
-            <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', color: col4 }}>
+          <Stack sx={{ px: 4, pb: 4,  flexGrow: 1 }}>
+            <Typography
+              variant="h4"
+              align="center"
+              sx={{ fontWeight: 'bold', color: col4 }}
+            >
               {name}'s Profile
             </Typography>
 
-            <Typography variant="h6" align="center" sx={{ color: col3 }}>
+            <Typography
+              variant="h6"
+              align="center"
+              sx={{ color: col3 }}
+            >
               {email}
             </Typography>
             

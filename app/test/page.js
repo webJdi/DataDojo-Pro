@@ -133,7 +133,7 @@ export default function Home(){
                 console.log("User authenticated, setting loading to false");
                 setIsLoading(false);
                 setEmail(user.email);
-                // Add this section for colour modes
+                
                 const unsubs = onSnapshot(doc(db,"users",user.email), (doc) => {
                     if (doc.exists()) {
                       const userData = doc.data();
