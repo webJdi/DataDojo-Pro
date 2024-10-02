@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const systemPrompt=`You are a flash card generator. Your task is to create flashcards in valid JSON format. The structure should be exactly like this:
 
@@ -16,28 +16,26 @@ Do not include any explanation, extra text, or commentary. Only return 8 flashca
 `;
 
 export async function POST(req) {
-    const openai = new OpenAI({
-      baseURL: "https://openrouter.ai/api/v1",
-      apiKey: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY,
-    });
+    const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
   
-    
+    try {
       const data = await req.text();
-      const completion = await openai.chat.completions.create({
-        messages: [
-          {
-            role: "system",
-            content: systemPrompt,
-          },
-          {
-            role: "user",
-            content:data
-          },
-        ],
-        model: "meta-llama/llama-3.1-8b-instruct:free",
-        response_format:{type:'json_object'}
-      })
       
-      const flashcards = JSON.parse(completion.choices[0].message.content)      
-      return NextResponse.json(flashcards.flashcards)
+      const result = await model.generateContent([
+        systemPrompt,
+        data
+      ]);
+      
+      const response = await result.response;
+      const textResponse = response.text();
+      
+      // Parse the JSON response
+      const flashcards = JSON.parse(textResponse);
+      
+      return NextResponse.json(flashcards.flashcards);
+    } catch (error) {
+      console.error('Error:', error);
+      return NextResponse.json({ error: 'Failed to generate flashcards' }, { status: 500 });
+    }
 };
