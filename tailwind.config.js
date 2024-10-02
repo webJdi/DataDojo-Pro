@@ -32,12 +32,14 @@ module.exports = {
       },
       green: {
         500: "#2FAB73",
-        600: "#227A56", // Darker green for dark mode
+        600: "#227A56",
+        700: "#81B29A" // Darker green for dark mode
       },
       white: {
         300: "#F8F8F8",
         500: "#fff",
-        600: "#E5E5E5", // Slightly darker white for dark mode
+        600: "#E5E5E5",
+        700: "#F4F1DE" // Slightly darker white for dark mode
       },
       gray: {
         100: "#EEEFF2",
@@ -51,9 +53,9 @@ module.exports = {
       colors: {
         // Dark theme colors
         dark: {
-          100: "#1A202C", // Dark background
-          200: "#2D3748", // Slightly lighter dark background
-          300: "#4A5568", // Dark border or accent
+          100: '#191c35', // Dark background
+          200: '#3D405B', // Slightly lighter dark background
+          300: '#2b2d44', // Dark border or accent
           400: "#718096", // Muted text color
         },
       },
