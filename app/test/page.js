@@ -104,7 +104,9 @@ export default function Home(){
           score: score + correctAnswers,
         })
         setShowResults(true);
-        router.push('/dashboard');
+        setTimeout(() => {
+            router.push('/dashboard');
+        }, 5000);
         
     };
 
