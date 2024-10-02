@@ -18,12 +18,12 @@ const Hero = ({
     {
       name: 'Flash Cards',
       number: 'practice with',
-      icon: '/assets/Icon/gridicons_location.svg',
+      icon: '/assets/Icon/flashcard.png',
     },
     {
       name: 'Track Progress',
       number: 'Always',
-      icon: '/assets/Icon/bx_bxs-server.svg',
+      icon: '/assets/Icon/graph.png',
     },
   ],
 }) => {
@@ -43,7 +43,7 @@ const Hero = ({
           variants={scrollAnimation}
         >
           <div className=" flex flex-col justify-center items-start row-start-2 sm:row-start-1">
-            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-600 leading-normal">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black-600 dark:text-gray-100 leading-normal">
               Your AI-powered assistant for mastering{' '}
               <strong>Data Structures and Algorithms</strong>.
             </h1>
@@ -69,7 +69,9 @@ const Hero = ({
       </ScrollAnimationWrapper>
       <div className={"relative w-full flex"}>
         <ScrollAnimationWrapper
-          className="rounded-lg w-full grid grid-flow-row sm:grid-flow-row grid-cols-1 sm:grid-cols-3 py-9 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-gray-100 bg-white-500 z-10"
+          className={"rounded-lg w-full grid grid-flow-row sm:grid-flow-row grid-cols-1 sm:grid-cols-3 py-9 divide-y-2 sm:divide-y-0 sm:divide-x-2 divide-gray-100 bg-white-500 z-10"
+            + 'bg-white-500 dark:bg-dark-200'
+          }
         >
           {listUser.map((listUsers, index) => (
             <motion.div
@@ -83,8 +85,8 @@ const Hero = ({
                   <Image
                     src={listUsers.icon}
                     alt="Icon"
-                    width={24}
-                    height={24}
+                    width={200}
+                    height={200}
                   />
                 </div>
                 <div className="flex flex-col">

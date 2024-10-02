@@ -42,14 +42,14 @@ const Feature = () => {
             <br />
             <br />
             <br />
-            <h3 className="text-3xl lg:text-4xl font-medium leading-relaxed text-black-600">
+            <h3 className="text-3xl lg:text-4xl font-medium leading-relaxed text-black-600 dark:text-white-300">
               We Provide Many Features You Can Use
             </h3>
-            <p className="my-2 text-black-500">
+            <p className="my-2 text-black-500 dark:text-gray-300">
               You can explore the features that we provide with fun and have their
               own functions each feature.
             </p>
-            <ul className={"text-black-500 self-start list-inside ml-8"+ ' text-black-500 dark:text-gray-100'}>
+            <ul className={"text-black-500 self-start list-inside ml-8"+ ' text-black-500 dark:text-white-700'}>
               {features.map((feature, index) => (
                 <motion.li
                   className="relative circle-check custom-list"

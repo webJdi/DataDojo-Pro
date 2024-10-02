@@ -33,27 +33,27 @@ const Header = ({ toggleDarkMode, isDarkMode }) => {
         className={
           'fixed top-0 w-full z-30 transition-all ' +
           (scrollActive ? 'shadow-md pt-0' : 'pt-4') +
-          ' bg-white-500 dark:bg-dark-200'
+          ' bg-white-500 dark:bg-dark-100'
         }
       >
-        <nav className="max-w-screen-xl px-0 sm:px-2 lg:px-4 mx-auto grid grid-flow-col py-3 sm:py-4">
-          <div className="col-start-1 col-end-2 flex items-center">
-            {isDarkMode ? (
-              <Image
-                src="/assets/Logo2.png"
-                alt="Your Website Logo"
-                width={250}
-                height={125}
-              />
-            ) : (
-              <Image
-                src="/assets/Logo.png"
-                alt="Your Website Logo"
-                width={250}
-                height={125}
-              />
-            )}
-          </div>
+          <nav className="max-w-screen-xl px-0 sm:px-2 lg:px-4 mx-auto grid grid-flow-col py-3 sm:py-4">
+            <div className="col-start-1 col-end-2 flex items-center">
+              {isDarkMode ? (
+                <Image
+                  src="/assets/Logo2.png"
+                  alt="Your Website Logo"
+                  width={200}
+                  height={100}
+                />
+              ) : (
+                <Image
+                  src="/assets/Logo.png"
+                  alt="Your Website Logo"
+                  width={200}
+                  height={100}
+                />
+              )}
+            </div>
           <ul className="hidden lg:flex col-start-2 col-end-4 items-center justify-start">
             <LinkScroll
               activeClass="active"
