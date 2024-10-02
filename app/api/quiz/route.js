@@ -16,7 +16,7 @@ const systemPrompt=`You are a quiz question generator. Your task is to create qu
   ]
 }
 
-Do not include any explanation, extra text, or commentary. Only return 10 questions in valid JSON format.
+Do not include any explanation, extra text, or commentary. Make sure 4 questions are very difficult and thought provoking, 3 questions are of medium difficulty, and 3 questions are basic. Only return 10 questions in valid JSON format.
 `;
 
 export async function POST(req) {
