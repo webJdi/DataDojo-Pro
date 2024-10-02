@@ -333,22 +333,46 @@ export default function Generate(){
                         >
                             {
                                 flashcards.length>0 && (<Box>
-                                    <Typography
-                                        variant="h5"
-                                        color={col4}
-                                        textAlign={'left'}
-                                        fontWeight={'100'}
+                                    <Box
+                                        display={'flex'}
+                                        flexDirection={'row'}
+                                        justifyContent={'space-between'}
                                     >
-                                        Flashcards Preview
-                                    </Typography>
+                                        <Box>
+                                            <Typography
+                                                variant="h5"
+                                                color={col4}
+                                                textAlign={'left'}
+                                                fontWeight={'100'}
+                                            >
+                                                Flashcards Preview
+                                            </Typography>
+                                            <Typography
+                                                variant="p"
+                                                color={col4}
+                                            >
+                                                Review and save the generated flashcards
+                                            </Typography>
+                                        </Box>
+                                        
 
-                                    <Typography
-                                        variant="p"
-                                        color={col4}
-                                    >
-                                        Review and save the generated flashcards
-                                    </Typography>
-
+                                        
+                                        <Box width={'20vw'} sx={{display:'flex', justifyContent:'flex-start'}}>
+                                            <Button
+                                                variant="contained"
+                                                onClick={handleOpen}
+                                                position={'fixed'}
+                                                zIndex={'10'}
+                                                bottom={'2vh'}
+                                                left={'50%'}
+                                                sx={{
+                                                    backgroundColor:col3
+                                                }}
+                                            >
+                                                Save
+                                            </Button>
+                                        </Box>
+                                    </Box>
                                     <Box
                                         width={'100%'}
                                         display={'flex'}
@@ -478,21 +502,7 @@ export default function Generate(){
                                     </Grid>
                                     </Box>
                                     </Box>
-                                    <Box sx={{mt:4, display:'flex', justifyContent:'center'}}>
-                                        <Button
-                                            variant="contained"
-                                            onClick={handleOpen}
-                                            position={'fixed'}
-                                            zIndex={'10'}
-                                            bottom={'2vh'}
-                                            left={'50%'}
-                                            sx={{
-                                                backgroundColor:col3
-                                            }}
-                                        >
-                                            Save
-                                        </Button>
-                                    </Box>
+                                    
                                 </Box>
                             )}
                         

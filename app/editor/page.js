@@ -136,13 +136,13 @@ export default function ProblemSolver() {
     console.log(found);
     if(found !="No match found.")
     {
-      setScore(score+1);
+      setScore(score+10);
       console.log(user.email);
       if (user.email)
         {
         const userRef = doc(db, 'users', user.email);
         await updateDoc(userRef, {
-          score: score + 1,
+          score: score + 10,
         });
     }
     return result;
