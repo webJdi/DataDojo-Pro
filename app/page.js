@@ -19,14 +19,17 @@ export default function Home() {
   };
 
   return (
-
+    
     <div className={isDarkMode ? 'dark' : ''}>
+      <div className={' bg-white-500 dark:bg-dark-100'}>
         <Header toggleDarkMode={toggleDarkMode}
           isDarkMode={isDarkMode}
         />
         <Hero />
         <Feature />
-        <Footer />
+        <Footer isDarkMode={isDarkMode} />
+      </div>
+        
     </div>
   );
 }

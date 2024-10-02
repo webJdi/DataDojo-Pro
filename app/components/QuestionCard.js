@@ -113,14 +113,13 @@ const QuestionCard = ({ question, onAnswer, userAnswer, onNavigate, currentIndex
                             key={option}
                             variant={userAnswer === option ? "contained" : "outlined"}
                             onClick={() => onAnswer(option)}
-                            
                             sx={{
                                 mb: 2,
                                 justifyContent: "flex-start",
                                 textAlign: "left",
                                 border:'none',
                                 color: col4,
-                                background: col8,
+                                
                                 
                                 padding:'1em',
                                 '&:hover': {

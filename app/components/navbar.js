@@ -318,8 +318,6 @@ const Navbar = () => {
 
                                     }}
                                 >
-                                    
-                                    
                                     <Box
                                         width={'15%'}
                                     >
@@ -406,6 +404,7 @@ const Navbar = () => {
                             <Box
                                 width={'100%'}
                                 display={isMobile?'none':'flex'}
+                                flexDirection={'column'}
                             >
                                 
                                 <Button

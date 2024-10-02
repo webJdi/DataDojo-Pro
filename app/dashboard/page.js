@@ -536,6 +536,7 @@ const toggleAppraisal = async (threadId) => {
                                     >
                                     <Typography
                                         color={col4}
+                                        variant="h6"
                                     >
                                         Flashcards Collection
                                     </Typography>
@@ -548,6 +549,7 @@ const toggleAppraisal = async (threadId) => {
                                     gap={1}
                                     overflow={'auto'}
                                     flexWrap={'wrap'}
+                                    justifyContent={'center'}
                                 >
                                     {cards.map((card) =>(
                                     <Link
@@ -558,8 +560,8 @@ const toggleAppraisal = async (threadId) => {
                                         key={card}
                                         color={col4}
                                         bgcolor={col8}
-                                        minWidth={'3em'}
-                                        maxWidth={'8em'}
+                                        minWidth={'5em'}
+                                        maxWidth={'10em'}
                                         minHeight={'6em'}
                                         padding={'1em 1em'}
                                         borderRadius={2}
@@ -607,7 +609,7 @@ const toggleAppraisal = async (threadId) => {
                                     >
                                     <Typography
                                         color={col4}
-                                        
+                                        variant="h6"
                                     >
                                         Problems
                                     </Typography>
