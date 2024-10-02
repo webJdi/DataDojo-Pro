@@ -177,8 +177,8 @@ const Navbar = () => {
                 justifyContent: 'flex-start',
                 backgroundColor: isActive(href) ? activeColor : 'transparent',
                 '&:hover': {
-                    color: col1,
-                    backgroundColor: isActive(href) ? activeColor : col4,
+                    color: col4,
+                    backgroundColor: isActive(href) ? activeColor : col8,
                 }
             }}
         >
@@ -269,8 +269,8 @@ const Navbar = () => {
                                         textAlign: 'left',
                                         justifyContent: 'flex-start',
                                         '&:hover':{
-                                            color:col1,
-                                            backgroundColor:col4
+                                            color:col4,
+                                            backgroundColor:col8
                                         }
 
                                     }}

@@ -377,7 +377,7 @@ if (authError) {
             label="Ask me anything"
             sx={{
               '& .MuiOutlinedInput-root': {
-                color: colorOne,
+                color: col1,
                 '& fieldset': {
                   borderColor: col4,
                 },
@@ -389,17 +389,17 @@ if (authError) {
                 },
               },
               '& .MuiInputLabel-root': {
-                color: colorOne,
+                color: col1,
               },
             }}
             InputProps={{
               sx: {
-                color: colorOne,
+                color: col4,
               },
             }}
             InputLabelProps={{
               sx: {
-                color: colorOne,
+                color: col4,
               },
             }}
             value={message}
@@ -420,7 +420,7 @@ if (authError) {
           }}
         >
           <SendIcon />
-         {/* {isLoading ? 'Sending...' : 'Send'} */}
+         
         </Button>
         <Button
             onClick={handleOpen}
