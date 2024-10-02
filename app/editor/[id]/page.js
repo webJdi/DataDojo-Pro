@@ -8,9 +8,14 @@ import { db } from '../../firebase';
 import questions from '../questions.json'; // Direct import from JSON
 import Editor from '@monaco-editor/react';
 import useLogout from '../../components/logout';
-import {collection, query, where, getDocs, doc, updateDoc} from 'firebase/firestore';
+import {collection, query, where, getDocs, doc, updateDoc, onSnapshot} from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
+
+//Components
+
+import Navbar from '../../components/navbar';
 
 import HomeIcon from '@mui/icons-material/Home';
 import CodeIcon from '@mui/icons-material/Code';
@@ -29,12 +34,20 @@ export default function ProblemSolver({params}) {
   // For Handling undefined or non-integer id gracefully
   const question = questions.questions.find(q => q.id === parseInt(id)) || null;
 
-  const col6 = ['#3D405B'] // Dark shade
-  const col2 = ['#E07A5F'] //red
-  const col3 = ['#81B29A'] //green
-  const col4 = ['#F4F1DE'] //white
-  const col5 = ['#F2CC8F'] //yellow
-  const col1 = '#191c35'; // Darker shade
+  
+  const isMobile = useMediaQuery('(max-width:450px)');
+
+
+  // state variables for colour mode
+  const [mode, setMode] = useState('dark');
+  const [col1, setCol1] = useState('#191c35'); // Darker shade
+  const [col2, setCol2] = useState('#E07A5F'); // red
+  const [col3, setCol3] = useState('#81B29A'); // green
+  const [col4, setCol4] = useState('#F4F1DE'); // white
+  const [col5, setCol5] = useState('#F2CC8F'); // yellow
+  const [col6, setCol6] = useState('#3D405B'); // Dark shade
+  const [col7, setCol7] = useState('#5FA8D3'); //Blue
+  const [col8, setCol8] = useState('#2b2d44'); //Darker shade
 
   const [language, setLanguage] = useState(0);
   const [code, setCode] = useState('');
@@ -134,6 +147,42 @@ export default function ProblemSolver({params}) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+
+       // Add this section for colour modes
+    const unsubs = onSnapshot(doc(db,"users",currentUser.email), (doc) => {
+      if (doc.exists()) {
+        const userData = doc.data();
+        if (userData.mode) {
+          setMode(userData.mode);
+        }
+        if(userData.mode == "light")
+          {
+              setCol1('#EDE8E2');
+              setCol2('#E07A5F');
+              setCol3('#81B29A');
+              setCol4('#000');
+              setCol5('#F2CC8F');
+              setCol6('#F4F1ED');
+              setCol7('#5FA8D3');
+              setCol8('#FFF'); 
+          }
+          else
+          {
+              setCol1('#191c35');
+              setCol2('#E07A5F');
+              setCol3('#81B29A');
+              setCol4('#F4F1DE');
+              setCol5('#F2CC8F');
+              setCol6('#3D405B');
+              setCol7('#5FA8D3');
+              setCol8('#2b2d44');
+          }
+      }
+    });
+    return () => {
+      unsubs();
+  };
+      // Colour modes' section ends here
     });
   
     return () => unsubscribe();
@@ -148,123 +197,29 @@ export default function ProblemSolver({params}) {
 
 
   return (
-    <Box width="100vw" height="100vh" bgcolor={col1}>
+    <Box
+      width="100vw"
+      height="100vh"
+      bgcolor={col1}
+      display={'flex'}
+      overflow={isMobile?'auto':'hidden'}
+      flexDirection={isMobile?'column':'row'}
+    >
+    
+    <Navbar/>
+
       <Box
-                        width='92vw'
-                        height='8vh'
-                        display='flex'
-                        justifyContent='space-between'
-                        alignItems='center'
-                        padding={'0 4vw'}
-                        >
-                            <Typography
-                            color={col4}
-                            margin='0.5em'
-                            fontSize='2em'
-                            >
-                                <Link
-                                    color='inherit'
-                                    underline='none'
-                                    href='../'
-                                >
-                                    Learn Buddy
-                                </Link>
-                            </Typography>
+        display="flex"
+        flexDirection={isMobile?'column':"row"}
+        bgcolor={col1}
+        gap={2}
+        width={isMobile?"100vw":"80vw"}
+        height="92vh">
 
-                            <Box
-                                display={'flex'}
-                                justifyContent={'space-around'}
-                                width={'30vw'}
-                            >
-                                <Button
-                                    href='../dashboard/'
-                                    
-                                    sx={{color:col4,
-                                        borderBottom:`4px solid ${col4}`,
-                                        '&:hover':{
-                                            color:col1,
-                                            backgroundColor:col4,
-                                                    
-                                        }
-
-                                    }}
-                                >
-                                    <HomeIcon display={'block'} />
-                                    
-                                </Button>
-                                <Button
-                                    href='../editor/'
-                                    sx={{color:col2,
-                                        borderBottom:`4px solid ${col2}`,
-                                        '&:hover':{
-                                            color:col1,
-                                            backgroundColor:col2
-                                        }
-
-                                    }}
-                                >
-                                    <CodeIcon />
-                                </Button>
-                                <Button
-                                    href='../chat/'
-                                    sx={{color:col3,
-                                        borderBottom:`4px solid ${col3}`,
-                                        '&:hover':{
-                                            color:col1,
-                                            backgroundColor:col3
-                                        }
-
-                                    }}
-                                >
-                                    <SupportAgentIcon />
-                                </Button>
-                                <Button
-                                    href='../fcgen/'
-                                    sx={{color:col5,
-                                        borderBottom:`4px solid ${col5}`,
-                                        '&:hover':{
-                                            color:col1,
-                                            backgroundColor:col5
-                                        }
-
-                                    }}
-                                >
-                                    <BoltIcon />
-                                </Button>
-                            </Box>
-                            
-                            <Box>
-                                {/* <Button
-                                    href="./profile/"
-                                    sx={{color:col4,
-                                        
-                                        '&:hover':{
-                                            color:col1,
-                                            backgroundColor:col4
-                                        }
-
-                                    }}
-                                >
-                                    <Person4Icon/>
-                                </Button> */}
-                                <Button
-                                    href="../profile/"
-                                    onClick={handleLogout}
-                                    sx={{color:col4,
-                                        '&:hover':{
-                                            color:col1,
-                                            backgroundColor:col4
-                                        }
-                                    }}
-                                >
-                                    <LogoutIcon/>
-                                </Button>
-                            </Box>
-                            
-                        </Box>
-
-      <Box display="flex" flexDirection="row" bgcolor={col1} gap={2} width="100vw" height="92vh">
-        <Box flex={1} sx={{ p: 2 }}>
+        <Box
+          flex={1}
+          width={isMobile?'95vw':'30vw'}
+          sx={{ p: 2 }}>
           <Paper elevation={3} sx={{ p: 2, mb: 2, bgcolor: col6, color: col4 }}>
             <Typography variant="h6" gutterBottom>
               Problem Statement
