@@ -35,13 +35,6 @@ import {auth, db} from '../firebase';
 import { collection, getDocs, query, orderBy, doc, updateDoc, onSnapshot } from "firebase/firestore";
 
 
-
-const lcol1 = ['#E4E2DE']; //Offwhite
-const lcol2 = ['#FFF']; //White
-const lcol3 = [''];
-
-
-
 const logout = useLogout();
 
 const Navbar = () => {
