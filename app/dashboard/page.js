@@ -61,7 +61,7 @@ export default function Home(){
     const [col8, setCol8] = useState('#2b2d44'); //Darker shade
 
 
-    const isMobile = useMediaQuery('(max-width:600px)');
+    const isMobile = useMediaQuery('(max-width:450px)');
 
     // Function to fetch max score from db
     const getMaxScore = async() => {
@@ -342,13 +342,13 @@ const toggleAppraisal = async (threadId) => {
                         {/*//////////////////////////// Navbar ends here /////////////////////////////////*/}
                         {/*////////////////////// Content container starts //////////////////////*/}
                     <Box
-                        height={'100vh'}
-                        width={'80vw'}
+                        height={isMobile?'auto':'100vh'}
+                        width={isMobile?'100vw':'80vw'}
                     >
                         {/*////////////////////// Top colourful Box  starts //////////////////////*/}
                         <Box
-                            width={'76vw'}
-                            height={'20vh'}
+                            width={isMobile?'90vw':'76vw'}
+                            height={isMobile?'25vh':'20vh'}
                             bgcolor={col3}
                             margin={'3vh 2vw'}
                             borderRadius={'0.2em'}
@@ -361,7 +361,10 @@ const toggleAppraisal = async (threadId) => {
                             overflow={'hidden'}
                         >
                             <Typography
-                                variant="h6"
+                                variant={"h6"}
+                                fontSize={isMobile?'1em':'1.2em'}
+                                maxWidth={isMobile?'60%':'100%'}
+                                fontWeight={600}
                             >
                                 Kickstart your DSA learning journey with DataDojo's efficient and flexible platform
                             </Typography>
@@ -393,13 +396,13 @@ const toggleAppraisal = async (threadId) => {
                             
                             <Box
                             position={'absolute'}
-                            right={'0'}
+                            right={isMobile?'-120px':'0'}
                             top={'0'}
                             >
                                 <Image
                                     src={'/leafs.png'}
-                                    height={'154'}
-                                    width={'200'}
+                                    height={isMobile?'120':'154'}
+                                    width={isMobile?'240':'200'}
                                 />
                             </Box>
 
@@ -409,14 +412,14 @@ const toggleAppraisal = async (threadId) => {
                         
                         {/*////////////////////// Container Box starts here for three content boxes  //////////////////////*/}
                         <Box
-                            width={'80vw'}
-                            height={'80vh'}
+                            width={isMobile?'100vw':'80vw'}
+                            height={isMobile?'auto':'80vh'}
                             display={'flex'}
-                            flexDirection={'row'}
+                            flexDirection={isMobile?'column':'row'}
                         >
                             {/*///////////////// Chat threads box  //////////////////////////*/}
                             <Box
-                                width={'20vw'}
+                                width={isMobile?'90vw':'20vw'}
                                 height={'70vh'}
                                 margin={'0 1vw 0 2vw'}
                                 bgcolor={col6}
@@ -519,10 +522,10 @@ const toggleAppraisal = async (threadId) => {
 
                             {/*///////////////////// Second Box starts here ////////////////////////////*/}
                             <Box
-                                width={'25vw'}
+                                width={isMobile? '90vw':'25vw'}
                                 height={'70vh'}
                                 bgcolor={col6}
-                                margin={'0 1vw 0 1vw'}
+                                margin={isMobile?'1vh 1vw 0 2vw':'0 1vw 0 1vw'}
                             >
                                     <Box
                                     height={'8vh'}
@@ -590,9 +593,9 @@ const toggleAppraisal = async (threadId) => {
 
                             {/*///////////////////// Third Box starts here ////////////////////////////*/}
                             <Box
-                                width={'27vw'}
+                                width={isMobile?'90vw':'27vw'}
                                 height={'70vh'}
-                                margin={'0 0 0 1vw'}
+                                margin={isMobile? '1vh 0 1vh 2vw':'0 0 0 1vw'}
                                 bgcolor={col6}
                             >
                                 <Box

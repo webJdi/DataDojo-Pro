@@ -52,7 +52,7 @@ const Navbar = () => {
 
 
     // Media query for detecting screen size
-    const isMobile = useMediaQuery('(max-width:600px)');
+    const isMobile = useMediaQuery('(max-width:450px)');
 
     // state variables for colour mode
     const [col1, setCol1] = useState('#191c35'); // Darker shade
@@ -261,7 +261,7 @@ const Navbar = () => {
 
                             
                             <Button
-                                display={isMobile? 'static':'none'} // Button for mobile menu
+                                sx={{display:isMobile? 'static':'none'}} // Button for mobile menu
                                 onClick={toggleDrawer(true)}
                             >
                                 <MenuIcon/>
