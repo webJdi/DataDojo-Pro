@@ -17,6 +17,7 @@ import {useRouter} from 'next/navigation';
 import {useState} from 'react';
 import { collection, setDoc, doc } from 'firebase/firestore';
 
+import Image from 'next/image';
 
 const customTheme = (outerTheme) =>
   createTheme({
@@ -146,7 +147,11 @@ export default function Home() {
                         underline='none'
                         href='./'
                     >
-                        Learn Buddy
+                        <Image
+                          src={'/assets/Logo2.png'}
+                          width={'300'}
+                          height={'150'}
+                        />
                     </Link>
                 </Typography>
             </Box>
@@ -171,7 +176,7 @@ export default function Home() {
                           color={col4}
                           variant='h4'
                       >
-                        Welcome to Learn Buddy
+                        Welcome to DataDOJO
                       </Typography>
                       <Typography
                         variant='h5'
@@ -180,7 +185,7 @@ export default function Home() {
                         color={col4}
                         fontWeight='100'
                       >
-                        Create a free Learn Buddy account and quench your curiosity today!
+                        Create a free DataDOJO account and quench your curiosity today!
                       </Typography>
               </Box>
 

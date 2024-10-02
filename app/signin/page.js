@@ -15,6 +15,7 @@ import {useRouter} from 'next/navigation';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {useState} from "react";
 
+import Image from 'next/image';
 
 const customTheme = (outerTheme) =>
   createTheme({
@@ -136,7 +137,11 @@ export default function Home() {
                         underline='none'
                         href='./'
                     >
-                        Learn Buddy
+                        <Image
+                          src={'/assets/Logo2.png'}
+                          width={'300'}
+                          height={'150'}
+                        />
                     </Link>
                 </Typography>
             </Box>
