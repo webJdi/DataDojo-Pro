@@ -419,7 +419,7 @@ const toggleAppraisal = async (threadId) => {
                         >
                             {/*///////////////// Chat threads box  //////////////////////////*/}
                             <Box
-                                width={isMobile?'90vw':'20vw'}
+                                width={isMobile?'92vw':'20vw'}
                                 height={'70vh'}
                                 margin={'0 1vw 0 2vw'}
                                 bgcolor={col6}
@@ -522,7 +522,7 @@ const toggleAppraisal = async (threadId) => {
 
                             {/*///////////////////// Second Box starts here ////////////////////////////*/}
                             <Box
-                                width={isMobile? '90vw':'25vw'}
+                                width={isMobile? '92vw':'25vw'}
                                 height={'70vh'}
                                 bgcolor={col6}
                                 margin={isMobile?'1vh 1vw 0 2vw':'0 1vw 0 1vw'}
@@ -593,7 +593,7 @@ const toggleAppraisal = async (threadId) => {
 
                             {/*///////////////////// Third Box starts here ////////////////////////////*/}
                             <Box
-                                width={isMobile?'90vw':'27vw'}
+                                width={isMobile?'92vw':'27vw'}
                                 height={'70vh'}
                                 margin={isMobile? '1vh 0 1vh 2vw':'0 0 0 1vw'}
                                 bgcolor={col6}
