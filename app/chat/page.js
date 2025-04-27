@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Typography, Stack, TextField, Button, Link, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ToggleButtonGroup, ToggleButton} from "@mui/material";
+import { Box, ButtonGroup, Typography, Stack, TextField, Button, Link, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ToggleButtonGroup, ToggleButton} from "@mui/material";
 import { useEffect, useState, useRef, classes} from "react";
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import useLogout from '../components/logout';
 import {CircularProgress} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { motion, useSpring, useMotionValue } from "framer-motion";
 
 //Components
 import Navbar from "../components/navbar";
@@ -25,6 +26,8 @@ import SaveIcon from '@mui/icons-material/Save';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PublicIcon from '@mui/icons-material/Public';
 import PersonIcon from '@mui/icons-material/Person';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import PowerIcon from '@mui/icons-material/Power';
 
 import { Save } from "lucide-react";
 
@@ -56,6 +59,8 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
 
+  const [totalUserChars, setTotalUserChars] = useState(0);
+  const [totalAssistantChars, setTotalAssistantChars] = useState(0);
 
   // state variables for colour mode
   const [mode, setMode] = useState('dark');
@@ -121,6 +126,7 @@ export default function Home() {
       { role: "user", content: message },
       { role: "assistant", content: '' }
     ]);
+    setTotalUserChars(prev => prev + message.length);
 
     try {
       const response = await fetch('/api/chat', {
@@ -144,6 +150,8 @@ export default function Home() {
           return result;
         }
         const text = decoder.decode(value || new Int8Array(), { stream: true });
+
+        setTotalAssistantChars(prev => prev + text.length);
         setMessages((messages) => {
           let lastMessage = messages[messages.length - 1];
           let otherMessages = messages.slice(0, messages.length - 1);
@@ -152,7 +160,7 @@ export default function Home() {
             {
               ...lastMessage,
               content: lastMessage.content + text
-            }
+            } 
           ];
         });
         return reader.read().then(processText);
@@ -209,11 +217,45 @@ export default function Home() {
       alert("Error saving thread: " + error.message);
     }
   };
+  
+  const etargetValue = ((totalAssistantChars+totalUserChars)*3.6*0.000277778/4).toFixed(1);
+  const emotionValue = useMotionValue(parseFloat(etargetValue));  // <- this is the motion value
+  const espringValue = useSpring(emotionValue, { stiffness: 100, damping: 20 });
+  
+  const [eDisplay, seteDisplay] = useState(etargetValue)
+
+  const wtargetValue = ((totalAssistantChars+totalUserChars)*0.005/4).toFixed(1);
+  const wmotionValue = useMotionValue(parseFloat(wtargetValue));  // <- this is the motion value
+  const wspringValue = useSpring(wmotionValue, { stiffness: 100, damping: 20 });
+  const [wDisplay, setwDisplay] = useState(wtargetValue)
+  
 
   useEffect(() => {
     document.title = "Learn Buddy";
     scrollToBottom();
   }, [messages]);
+
+  
+  useEffect(() => {
+    emotionValue.set(parseFloat(etargetValue));
+  }, [etargetValue]);
+  
+  useEffect(() => {
+    wmotionValue.set(parseFloat(wtargetValue));
+  }, [wtargetValue]);
+  useEffect(() => {
+    const unsubscribe = espringValue.onChange((v) => {
+      seteDisplay(v.toFixed(1));
+    });
+    return () => unsubscribe();
+  }, [espringValue]);
+
+  useEffect(() => {
+    const unsubscribe = wspringValue.onChange((v) => {
+      setwDisplay(v.toFixed(1));
+    });
+    return () => unsubscribe();
+  }, [wspringValue]);
 
   useEffect(() => {
     console.log("Component mounted, starting auth check");
@@ -354,8 +396,51 @@ if (authError) {
       </Box>
       <Box
         position={"fixed"}
+        bottom={{xs:'1vh',sm:'5vh',md:'7vh'}}
+        left={{xs:'5vw',md:'22vw'}}
+        width={{ xs: '10vw', sm: '10vw', md: '12vw' }}
+        display={'flex'}
+        alignContent={'center'}
+        backgroundColor={col4}
+        padding={'0.5em'}
+        zIndex={'10'}
+        borderRadius={'2em'}
+        justifyContent={'center'}
+      >
+          <Button
+              sx={{
+                backgroundColor: 'transparent',
+                color: col7,
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  color: col1,
+                },
+              }}
+            >
+              <WaterDropIcon/>
+              <Typography>{wDisplay}L</Typography>
+            
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: 'transparent',
+                color: col3,
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                  color: col1,
+                },
+              }}
+            >
+              <PowerIcon/>
+              <Typography>{eDisplay}kWh</Typography>
+            
+            </Button>
+      </Box>
+      
+      <Box
+        position={"fixed"}
         bottom={{xs:'1vh',sm:'5vh',md:'5vh'}}
-        right={{xs:'5vw',md:'10vw'}}
+        right={{xs:'5vw',md:'5vw'}}
         width={{ xs: '90vw', sm: '80vw', md: '60vw' }}
         display={'flex'}
         alignContent={'center'}
@@ -364,10 +449,11 @@ if (authError) {
         zIndex={'10'}
         borderRadius={'2em'}
       >
+        
         <Box
         width={'100%'}
-        
         >
+          
           <TextField
             id="outlined-textarea"
             placeholder="Hey"

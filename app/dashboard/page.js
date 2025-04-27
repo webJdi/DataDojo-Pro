@@ -366,7 +366,7 @@ const toggleAppraisal = async (threadId) => {
                                 maxWidth={isMobile?'60%':'100%'}
                                 fontWeight={600}
                             >
-                                Kickstart your DSA learning journey with DataDojo's efficient and flexible platform
+                                Lorem Ipsum
                             </Typography>
                             <Typography
                                 variant="p"
